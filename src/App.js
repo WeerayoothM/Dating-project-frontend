@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
-import Playground from './pages/Playground';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -15,7 +14,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
-        <Route path="/playground" component={Playground} />
+        <Route path="/playground" component={Dashboard} />
         <Redirect to="/home" />
       </Switch>
     </div>

@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import 'antd/dist/antd.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
+import 'font-awesome/css/font-awesome.css';
+
 
 ReactDOM.render(
   <BrowserRouter>
