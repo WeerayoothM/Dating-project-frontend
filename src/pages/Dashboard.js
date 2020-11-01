@@ -1,13 +1,14 @@
 import React from 'react';
 import Matches from '../components/Matches/Matches';
+import Playground from '../components/Playground/Playground';
 
-function Playground() {
+function Dashboard() {
   return (
-    <div>
+    <div style={{ display: 'flex' }}>
       <Matches />
-      Playground
+      <Playground />
     </div>
   );
 }
 
-export default Playground;
+export default Dashboard;
