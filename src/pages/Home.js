@@ -8,6 +8,7 @@ function Home() {
     const showModal = () => {
         setVisibleLoginForm(true);
     };
+
     return (
         <>
             <div class="background-hero-page vignette">

@@ -2,7 +2,6 @@ import React from 'react';
 
 function Login() {
     return (
-
         <main className="main">
             <div className="wrapper">
                 <div className="card">

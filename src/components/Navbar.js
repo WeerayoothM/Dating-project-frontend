@@ -18,7 +18,7 @@ function Navbar(props) {
                         {/* <Button className="btn-login" type="primary" onClick={() => props.history.push('/login')}>
                             Login
                         </Button> */}
-                        <button className="btn-4" onClick={props.showModal}>Login</button>
+                        <button className="btn-4" onClick={props.showModal}>LOG IN</button>
 
                         {/* <LoginModal /> */}
                     </Col>
