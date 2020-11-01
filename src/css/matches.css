@@ -1,0 +1,8 @@
+.matches {
+}
+
+.matches-header {
+  box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
+  height: 60px;
+  background: linear-gradient(262deg, #ff7854, #fd267d);
+}

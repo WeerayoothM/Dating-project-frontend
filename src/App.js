@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -16,7 +16,7 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
         <Route path="/playground" component={Playground} />
-        <Redirect to='/home' />
+        <Redirect to="/home" />
       </Switch>
     </div>
   );
