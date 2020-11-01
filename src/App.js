@@ -15,9 +15,8 @@ function App() {
         <Route exact path="/home" component={Home} />
         <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
-        <Route path="/playground" component={Dashboard} />
+        <Route path="/dashboard" component={Dashboard} />
         <Route path="/admin" component={admin} />
-
         <Redirect to='/home' />
       </Switch>
     </div>

@@ -1,6 +1,42 @@
-import React from 'react';
 
-function Login() {
+import { Input, notification } from 'antd';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import axios from '../config/axios';
+import LocalStorageService from '../services/localStorage'
+
+function Login(props) {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const onChangeEmail = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const onChangePassword = (e) => {
+        setPassword(e.target.value)
+    }
+
+    const onFinish = (e) => {
+        e.preventDefault();
+        axios.post('/auth/login', { email, password })
+            .then(res => {
+                notification.success({
+                    description: "Login success"
+                })
+                LocalStorageService.setToken(res.data.token);
+                props.history.push('/dashboard');
+
+            })
+            .catch(err => {
+                console.log(err)
+                notification.error({
+                    description: "Login failed"
+                })
+            })
+    };
+
+
     return (
         <main className="main">
             <div className="wrapper">
@@ -9,42 +45,25 @@ function Login() {
                         <h1 className="title title-large">Sign In</h1>
                         <p className="title title-subs">New user? <span><a href="/register" className="linktext">Create an account</a></span></p>
                     </div>
-                    <form className="form">
+
+                    <form className="form" onSubmit={onFinish}>
                         <div className="form-group">
-                            <input type="email" name="email" id="email" className="input-field" placeholder="Email address" />
+                            <Input className="input-field" bordered={false} values={email} onChange={onChangeEmail} placeholder={"Email address"} required />
+                            {/* <input value={email} onChange={onChangeEmail} type="email" name="email" id="email" className="input-field" placeholder="Email address" /> */}
                         </div>
                         <div className="form-group">
-                            <input type="password" name="password" id="password" className="input-field" placeholder="Password" />
+                            <Input.Password className="input-field" bordered={false} values={password} onChange={onChangePassword} placeholder={"Password"} required />
+                            {/* <input values={password} onChange={onChangePassword} type="password" name="password" id="password" className="input-field" placeholder="Password" /> */}
                         </div>
                         <div className="form-group">
                             <a href="/home" className="linktext">Forgot Password</a>
-                            <input type="button" name="submit" className="input-submit" defaultValue="Login" />
+                            <button className="input-submit" type="submit" >Login</button>
                         </div>
                     </form>
-                    {/* <div className="line">
-                        <span className="line-bar" />
-                        <span className="line-text">Or</span>
-                        <span className="line-bar" />
-                    </div>
-                     <div className="method">
-                        <div className="method-item">
-                            <a href="#" className="btn-action">
-                                <i className="icons icons-google fab fa-google" />
-                                <span>Sign in with Google</span>
-                            </a>
-                        </div>
-                        <div className="method-item">
-                            <a href="#" className="btn-action">
-                                <i className="icons icons-facebook fab fa-facebook" />
-                                <span>Sign in with Facebook</span>
-                            </a>
-                        </div>
-                       
-                    </div> */}
                 </div>
             </div>
         </main>
     )
 }
 
-export default Login
+export default withRouter(Login)
