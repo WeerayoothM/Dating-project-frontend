@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import LoginModal from '../components/LoginModal';
-import Navbar from '../components/Navbar'
-import '../home.css'
+import Navbar from '../components/Navbar';
+
 function Home() {
     const [visibleLoginForm, setVisibleLoginForm] = useState(false);
 

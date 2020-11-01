@@ -1,8 +1,6 @@
-
 import React, { useState } from 'react';
 import { Affix, Button, Col, Row } from 'antd';
 import { withRouter } from 'react-router-dom';
-import LoginModal from './LoginModal';
 
 function Navbar(props) {
     const [top, setTop] = useState(10);

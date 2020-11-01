@@ -36,21 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-/* hero page */
-.background-hero-page {
-  background-image: url("https://www.pewresearch.org/wp-content/uploads/2020/08/FT_20.08.14_Dating_Featured-Image_key-takeaways.jpg");
-  height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  object-fit: cover;
-  /* opacity: 0.9; */
-}
-.vignette {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 0 200px rgba(0, 0, 0, 0.9) inset;
-}

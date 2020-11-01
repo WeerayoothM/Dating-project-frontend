@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
-import '../Login.css'
 import LoginForm from './LoginForm';
 
 function LoginModal(props) {

@@ -1,11 +1,12 @@
 import './App.css';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import admin from './components/Admin';
+import './css/login.css';
+import './css/home.css';
 
 function App() {
   return (
