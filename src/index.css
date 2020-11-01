@@ -9,6 +9,12 @@ body {
 
 a {
   color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
 }
 
 code {

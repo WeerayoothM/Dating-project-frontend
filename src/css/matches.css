@@ -27,9 +27,39 @@
   font-weight: 500;
 }
 .matches-header button {
-  border: none;
   border: 3px solid white;
   border-radius: 50%;
   color: rgba(0, 0, 0, 100);
-  cursor: pointer;
+}
+.matches-tab {
+  display: flex;
+  padding: 10px 20px;
+}
+.matches-tab a {
+  color: black;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-right: 40px;
+}
+.matches-profiles {
+  padding: 10px 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.matches-profiles > div {
+  width: 33%;
+  padding: 5px;
+  position: relative;
+}
+.matches-profiles > div > img {
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
+}
+.matches-profiles > div > span {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-weight: 700;
+  color: white;
 }
