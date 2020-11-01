@@ -16,7 +16,7 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
         <Route path="/playground" component={Playground} />
-        <Route />
+        <Redirect to='/home' />
       </Switch>
     </div>
   );
