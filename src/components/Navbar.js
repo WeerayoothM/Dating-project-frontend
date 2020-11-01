@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Affix, Button, Col, Row } from 'antd';
 import { withRouter } from 'react-router-dom';
@@ -8,17 +7,20 @@ function Navbar(props) {
     return (
         <>
             <Affix offsetTop={top} >
-                <Row justify="space-around" align="middle" style={{ border: "1px solid" }} >
-                    <Col span={4} style={{ border: "1px solid" }} >
-                        <div style={{ fontSize: "2.5rem" }} >
-                            <i class="fas fa-heartbeat"></i>
+                <Row justify="space-between" align="middle" style={{ padding: "0 70px" }} >
+                    <Col >
+                        <div style={{ fontSize: "2.5rem", color: "white" }} >
+                            <i class="fas fa-heartbeat"></i> &nbsp;
                             <span>Dating</span>
                         </div>
                     </Col>
-                    <Col span={20} style={{ display: "flex", justifyContent: "flex-end" }} >
-                        <Button type="primary" onClick={() => props.history.push('/login')}>
+                    <Col style={{ display: "flex", justifyContent: "flex-end" }} >
+                        {/* <Button className="btn-login" type="primary" onClick={() => props.history.push('/login')}>
                             Login
-                    </Button>
+                        </Button> */}
+                        <button className="btn-4" onClick={props.showModal}>LOG IN</button>
+
+                        {/* <LoginModal /> */}
                     </Col>
                 </Row>
 
