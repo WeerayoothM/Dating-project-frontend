@@ -5,8 +5,8 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import admin from './components/Admin';
-import './css/login.css';
 import './css/home.css';
+import './components/Register/register.css'
 
 function App() {
   return (

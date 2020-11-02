@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import LoginForm from './LoginForm';
+import './login.css'
 
 function LoginModal(props) {
     const { visible, setVisible } = props;

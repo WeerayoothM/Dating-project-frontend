@@ -192,8 +192,8 @@ button {
 
 /* Button login*/
 .btn-4 {
-  padding: 9px 20px;
-  font-size: 1rem;
+  padding: 0.5vw 2vw;
+  font-size: 1.2rem;
   /* height: 50px; */
   cursor: pointer;
   border: 0px;
@@ -238,8 +238,11 @@ button {
 
 /* Button Get started*/
 .btn-5 {
-  padding: 10px 40px;
-  font-size: 1.2rem;
+  padding: 8px 10px;
+
+  height: vw;
+  width: 20vw;
+  font-size: 1.3rem;
   /* height: 50px; */
   cursor: pointer;
   border: 0px;
@@ -247,9 +250,9 @@ button {
   position: relative; /*มีการใช้ sudo element จึงต้อง set position*/
   /* margin: 20px; */
   transition: all 0.25s ease;
-  color: #fff;
+  color: #000;
   overflow: hidden;
-  border-radius: 40px;
+  border-radius: 37px;
   box-shadow: 0px -0px 0px 0px rgba(143, 64, 248, 0.5),
     0px 0px 0px 0px rgba(39, 200, 255, 0.5);
 }
@@ -263,14 +266,15 @@ button {
     #26caf8 50%,
     #c625d0 100%
   );
+  color: #fff;
 }
 .btn-5:hover::before {
   transform: rotate(150deg);
 }
 .btn-5::before {
   content: "";
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   position: absolute;
   top: -50px;
   left: -100px;
