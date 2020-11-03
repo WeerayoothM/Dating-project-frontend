@@ -22,26 +22,6 @@ function Login() {
                             <input type="button" name="submit" className="input-submit" defaultValue="Login" />
                         </div>
                     </form>
-                    {/* <div className="line">
-                        <span className="line-bar" />
-                        <span className="line-text">Or</span>
-                        <span className="line-bar" />
-                    </div>
-                     <div className="method">
-                        <div className="method-item">
-                            <a href="#" className="btn-action">
-                                <i className="icons icons-google fab fa-google" />
-                                <span>Sign in with Google</span>
-                            </a>
-                        </div>
-                        <div className="method-item">
-                            <a href="#" className="btn-action">
-                                <i className="icons icons-facebook fab fa-facebook" />
-                                <span>Sign in with Facebook</span>
-                            </a>
-                        </div>
-                       
-                    </div> */}
                 </div>
             </div>
         </main>

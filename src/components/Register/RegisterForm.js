@@ -13,7 +13,7 @@ import {
     Divider,
 } from 'antd';
 import React, { useState } from 'react';
-import { InboxOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
+import { InboxOutlined, QuestionCircleOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
 
 const formItemLayout = {
     labelCol: {
@@ -40,25 +40,18 @@ const tailFormItemLayout = {
 
 function RegisterForm(props) {
     const { current } = props;
-    const [imageUrl, setImageUrl] = useState('')
+    const [imageUrl, setImageUrl] = useState('');
+
     const options = [{ label: 'male', value: 'gold' }, { label: 'female', value: 'cyan' }, { label: 'binary', value: 'green' }, { label: 'other', value: 'lime' }]
+
     const onSelect = (e) => {
         console.log(e)
     }
+
     const [form] = Form.useForm();
 
     const onFinish = values => {
         console.log('Received values of form: ', values);
-    };
-
-    const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-
-    const onWebsiteChange = value => {
-        if (!value) {
-            setAutoCompleteResult([]);
-        } else {
-            setAutoCompleteResult(['.com', '.org', '.net'].map(domain => `${value}${domain}`));
-        }
     };
 
     const normFile = e => {
@@ -235,18 +228,18 @@ function RegisterForm(props) {
                         size={200}
                         icon={imageUrl ? <Image src={imageUrl} /> : <UserOutlined />}
                     />
+
                     <Divider />
 
-
-                    <Form.Item name="Upload" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
-                        <Upload.Dragger name="files" action="/upload.do">
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined />
-                            </p>
-                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                            {/* <p className="ant-upload-hint">Upto 5 picture</p> */}
-                        </Upload.Dragger>
-
+                    <Form.Item
+                        name="upload"
+                        label="Upload Profile Picture"
+                        valuePropName="fileList"
+                        getValueFromEvent={normFile}
+                    >
+                        <Upload name="logo" action="/upload.do" listType="picture">
+                            <Button icon={<UploadOutlined />}>Click to upload</Button>
+                        </Upload>
                     </Form.Item>
                 </Form>
             )
