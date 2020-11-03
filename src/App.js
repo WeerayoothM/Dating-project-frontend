@@ -15,10 +15,14 @@ function App() {
         <Route exact path="/home" component={Home} />
         <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
-        <Route path="/playground" component={Dashboard} />
+        <Route path="/dashboard" component={Dashboard} />
         <Route path="/admin" component={admin} />
+<<<<<<< HEAD
 
         <Redirect to="/home" />
+=======
+        <Redirect to='/home' />
+>>>>>>> b1a78ba097e92d618820cba9a05b7da91727895c
       </Switch>
     </div>
   );
