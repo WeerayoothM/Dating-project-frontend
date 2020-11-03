@@ -1,30 +1,61 @@
-import React from 'react';
-import '../../css/playground.css';
+import React, { useState, useEffect } from 'react';
+import './playground.css';
+import axios from '../../config/axios';
 
-const data = {
-  name: 'กิ๊ฟ',
-  detailLink: 'https://people.mthai.com/starthai/8916.html',
-  birthDay: 508784400,
-  images: [
-    'https://img-ha.mthcdn.com/7YGfPJ6KcltZBC0SiBp-Vo1ku4g=/200x200/smart/people.mthai.com/app/uploads/2016/11/162.jpg',
-    'https://people.mthai.com/app/uploads/2016/11/172-260x300.jpg',
-    'https://people.mthai.com/app/uploads/2016/11/109-300x203.jpg',
-    'https://people.mthai.com/app/uploads/2016/11/130-238x300.jpg',
-    'https://people.mthai.com/app/uploads/2016/11/213-269x300.jpg',
-  ],
-};
 export default function Playground() {
+  const [name, setName] = useState('');
+  const [birthDay, setBirthDay] = useState(null);
+  const [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    getNextProfile();
+  }, []);
+
+  const handleLike = () => {
+    axios
+      .post('/api', { status: 'like' })
+      .then((res) => {})
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const getNextProfile = () => {
+    axios
+      .get('/play')
+      .then((res) => {
+        const user = res.data.randUser;
+        console.log('user', user);
+        setName(user.name);
+        setBirthDay(user.birthDay);
+        setPhotos(user.Photos);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   return (
     <div className="playground">
       <div className="playground-profile">
-        <img src={data.images[3]} alt="" />
+        <img src={photos[0].imageUrl} alt="" />
+        <span>{name}</span>
       </div>
       <div className="playground-control">
-        <i class="fas fa-undo"></i>
-        <i class="fas fa-times"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-heart"></i>
-        <i class="fas fa-bolt"></i>
+        <div>
+          <i class="fas fa-undo"></i>
+        </div>
+        <div onClick={getNextProfile}>
+          <i class="fas fa-times"></i>
+        </div>
+        <div>
+          <i class="fas fa-star"></i>
+        </div>
+        <div onClick={handleLike}>
+          <i class="fas fa-heart"></i>
+        </div>
+        <div>
+          <i class="fas fa-bolt"></i>
+        </div>
       </div>
     </div>
   );

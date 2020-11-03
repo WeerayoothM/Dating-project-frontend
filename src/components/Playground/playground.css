@@ -1,0 +1,51 @@
+.playground {
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.playground-profile {
+  width: 375px;
+  position: relative;
+}
+.playground-profile img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
+}
+.playground-profile span {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  color: white;
+  font-size: 2rem;
+  text-shadow: 2px 2px 5px #000;
+}
+.playground-control {
+  display: flex;
+  justify-content: center;
+}
+
+.playground-control > div {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
+  margin: 0.5rem;
+  text-align: center;
+  padding-top: 0.8rem;
+  cursor: pointer;
+}
+.playground-control i {
+  font-size: 1.5rem;
+}
+.playground-control .fa-heart {
+  color: #fd5068;
+}
+.playground-control .fa-star {
+  color: rgb(62, 122, 233);
+}
+.playground-control .fa-times {
+  color: rgb(21, 172, 109);
+}
+.playground-control .fa-bolt {
+  color: blueviolet;
+}
