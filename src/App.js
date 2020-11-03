@@ -5,8 +5,12 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import admin from './components/Admin';
+<<<<<<< HEAD
 import './css/Login.css';
+=======
+>>>>>>> 35f5c9663033cfa9b79235c03c41582f87068807
 import './css/home.css';
+import './components/Register/register.css'
 
 function App() {
   return (

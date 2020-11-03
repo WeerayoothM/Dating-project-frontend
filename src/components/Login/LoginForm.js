@@ -2,8 +2,8 @@
 import { Input, notification } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from '../config/axios';
-import LocalStorageService from '../services/localStorage'
+import axios from '../../config/axios';
+import LocalStorageService from '../../services/localStorage'
 
 function Login(props) {
     const [email, setEmail] = useState('')

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Affix, Button, Col, Row } from 'antd';
+import { Affix, Col, Row } from 'antd';
 import { withRouter } from 'react-router-dom';
 
 function Navbar(props) {
-    const [top, setTop] = useState(10);
+    const [top] = useState(10);
     return (
         <>
             <Affix offsetTop={top} >
