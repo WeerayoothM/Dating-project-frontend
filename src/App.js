@@ -5,7 +5,7 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import admin from './components/Admin';
-import './css/login.css';
+import './css/Login.css';
 import './css/home.css';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/playground" component={Dashboard} />
         <Route path="/admin" component={admin} />
 
-        <Redirect to='/home' />
+        <Redirect to="/home" />
       </Switch>
     </div>
   );

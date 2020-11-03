@@ -19,6 +19,13 @@ export default function Playground() {
       <div className="playground-profile">
         <img src={data.images[3]} alt="" />
       </div>
+      <div className="playground-control">
+        <i class="fas fa-undo"></i>
+        <i class="fas fa-times"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-bolt"></i>
+      </div>
     </div>
   );
 }
