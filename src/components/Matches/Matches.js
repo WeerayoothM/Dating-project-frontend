@@ -1,5 +1,6 @@
 import React from 'react';
-import '../../css/matches.css';
+import './matches.css';
+import { Link } from 'react-router-dom';
 
 const data = [
   {
@@ -100,7 +101,7 @@ const data = [
   },
 ];
 
-export default function Matches() {
+export default function Matches(props) {
   const displayProfiles = () => {
     return data.map((profile) => (
       <div>
@@ -112,16 +113,16 @@ export default function Matches() {
   return (
     <div className="matches">
       <div className="matches-header">
-        <a className="matches-header__profile" href="#">
+        <Link to="/profile" className="matches-header__profile" href="#">
           <img src="./images/profile.jpg" alt="" />
           <span>My Profile</span>
-        </a>
+        </Link>
         <button>
           <i class="fas fa-shopping-bag"></i>
         </button>
       </div>
       <div className="matches-tab">
-        <a href="#">Mathces</a>
+        <a href="#">Matches</a>
         <a href="#">Messages</a>
       </div>
       <div className="matches-profiles">{displayProfiles()}</div>

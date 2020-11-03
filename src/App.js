@@ -6,7 +6,7 @@ import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import admin from './components/Admin';
 import './css/home.css';
-import './components/Register/register.css'
+import './components/Register/register.css';
 
 function App() {
   return (
@@ -17,7 +17,8 @@ function App() {
         <Route path="/profile" component={Profile} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/admin" component={admin} />
-        <Redirect to='/home' />
+
+        <Redirect to="/home" />
       </Switch>
     </div>
   );
