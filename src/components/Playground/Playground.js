@@ -14,7 +14,7 @@ export default function Playground() {
   const handleLike = () => {
     axios
       .post('/api', { status: 'like' })
-      .then((res) => {})
+      .then((res) => { })
       .catch((err) => {
         console.error(err);
       });
@@ -34,10 +34,16 @@ export default function Playground() {
         console.error(err);
       });
   };
+
+  const image_url = photos[0] && (photos[0].imageUrl.includes('http') ? photos[0].imageUrl : `http://localhost:5555/${photos[0].imageUrl}`);
   return (
     <div className="playground">
       <div className="playground-profile">
+<<<<<<< HEAD
         <img src={photos[0] && photos[0].imageUrl} alt="" />
+=======
+        <img src={image_url} alt="" />
+>>>>>>> 92869ae5369da6e228c65a196b8139802493a25a
         <span>{name}</span>
       </div>
       <div className="playground-control">

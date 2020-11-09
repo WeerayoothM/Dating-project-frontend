@@ -1,29 +1,56 @@
 import React, { useState } from 'react';
-import { Steps, Button, message, Row, Col } from 'antd';
+import { Steps, Button, message, Row, Col, notification } from 'antd';
 import RegisterForm from '../components/Register/RegisterForm';
-// import '../components/Register/register.css'
+import SelectTaste from '../components/Register/SelectTaste';
+import UploadImage from '../components/Register/UploadImage';
+import axios from '../config/axios';
+import { withRouter } from 'react-router-dom';
 
-function Register() {
-    const [current, setCurrent] = useState(0)
-    const { Step } = Steps;
+const { Step } = Steps;
+
+function Register(props) {
+    const [current, setCurrent] = useState(0);
+    const [formValue, setFormValue] = useState(null);
+    const [tasteValue, setTasteValue] = useState(null);
+    const [mediaValue, setMediaValue] = useState(null);
+
+    const onSubmit = () => {
+        console.log("formvalue :", formValue)
+        axios.post('/auth/register', { ...formValue, target: tasteValue[0], imageUrl: mediaValue })
+            .then(res => {
+                console.log(res);
+                message.success('Processing complete!');
+                props.history.push('/home');
+            })
+            .catch(err => {
+                console.log(err)
+                notification.error({
+                    description: "Login failed"
+                })
+            })
+    }
+
     const steps = [
         {
             title: 'Select Taste',
+            content: <SelectTaste next={next} current={current} tasteValue={tasteValue} setTasteValue={setTasteValue} />
         },
         {
             title: 'Account Detail',
+            content: <RegisterForm next={next} current={current} formValue={formValue} setFormValue={setFormValue} />
         },
         {
             title: 'Upload Profile',
+            content: <UploadImage current={current} mediaValue={mediaValue} setMediaValue={setMediaValue} />
         },
     ];
 
-    const next = (e) => {
-        e.preventDefault();
+    function next(e) {
+        // e.preventDefault();
         setCurrent(current + 1);
     }
 
-    const prev = (e) => {
+    function prev(e) {
         e.preventDefault();
         setCurrent(current - 1);
     }
@@ -41,7 +68,7 @@ function Register() {
                     ))}
                 </Steps>
                 <div className="right-content">
-                    <RegisterForm current={current} />
+                    {steps[current].content}
                 </div>
 
                 <div className="steps-action">
@@ -50,13 +77,13 @@ function Register() {
                             Previous
                         </Button>
                     )}
-                    {current < steps.length - 1 && (
+                    {/* {current < steps.length - 1 && (
                         <Button type="primary" onClick={next}>
                             Next
                         </Button>
-                    )}
+                    )} */}
                     {current === steps.length - 1 && (
-                        <Button type="primary" onClick={() => message.success('Processing complete!')}>
+                        <Button type="primary" onClick={onSubmit}>
                             Done
                         </Button>
                     )}
@@ -66,7 +93,7 @@ function Register() {
     )
 }
 
-export default Register
+export default withRouter(Register)
 
 
 
