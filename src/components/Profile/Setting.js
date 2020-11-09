@@ -6,13 +6,13 @@ import './Setting.css';
 const { Content, Footer } = Layout;
 
 export default function Profile(props) {
-  const data = {
-    name : props.props.name,
-    email : props.props.email,
-    phone : props.props.mobile_number,
-  }
+  // const data = {
+  //   name : props.props.name,
+  //   email : props.props.email,
+  //   phone : props.props.mobile_number,
+  // }
 
-  console.log(data.name)
+  // console.log(data.name)
   function onChange(checked) {
     console.log(`switch to ${checked}`);
   }
