@@ -37,7 +37,7 @@ export default function Playground() {
   return (
     <div className="playground">
       <div className="playground-profile">
-        <img src={photos[0].imageUrl} alt="" />
+        <img src={photos[0] && photos[0].imageUrl} alt="" />
         <span>{name}</span>
       </div>
       <div className="playground-control">
