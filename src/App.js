@@ -17,7 +17,6 @@ function App() {
         <Route path="/profile" component={Profile} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/admin" component={admin} />
-
         <Redirect to="/home" />
       </Switch>
     </div>

@@ -28,7 +28,7 @@ function SelectTaste(props) {
                 mode="multiple"
                 size="large"
                 showArrow
-                defaultValue={['gold', 'cyan']}
+                // defaultValue={['gold', 'cyan']}
                 style={{ width: '50%' }}
                 options={options}
                 tagRender={tagRender}
