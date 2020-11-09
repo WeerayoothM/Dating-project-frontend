@@ -1,20 +1,13 @@
 import {
-    Moment,
-    Select, Tag, Form,
+    Form,
     Input,
     Tooltip,
-    Row,
-    Col,
     Checkbox,
     Button,
     DatePicker,
-    Upload,
-    Avatar,
-    Image,
-    Divider,
 } from 'antd';
-import React, { useState } from 'react';
-import { InboxOutlined, QuestionCircleOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
+import React from 'react';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const formItemLayout = {
     labelCol: {
@@ -69,7 +62,7 @@ function RegisterForm(props) {
                         </Tooltip>
                     </span>
                 }
-                rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
+                rules={[{ required: false, message: 'Please input your nickname!', whitespace: true }]}
             >
                 <Input />
             </Form.Item>
@@ -83,7 +76,7 @@ function RegisterForm(props) {
                         message: 'The input is not valid E-mail!',
                     },
                     {
-                        required: true,
+                        required: false,
                         message: 'Please input your E-mail!',
                     },
                 ]}
@@ -96,7 +89,7 @@ function RegisterForm(props) {
                 label="Password"
                 rules={[
                     {
-                        required: true,
+                        required: false,
                         message: 'Please input your password!',
                     },
                 ]}
@@ -112,7 +105,7 @@ function RegisterForm(props) {
                 hasFeedback
                 rules={[
                     {
-                        required: true,
+                        required: false,
                         message: 'Please confirm your password!',
                     },
                     ({ getFieldValue }) => ({
@@ -135,19 +128,19 @@ function RegisterForm(props) {
                         Gender&nbsp;
                             </span>
                 }
-                rules={[{ required: true, message: 'Please input your gender!', whitespace: true }]}
+                rules={[{ required: false, message: 'Please input your gender!', whitespace: true }]}
             >
                 <Input />
             </Form.Item>
 
-            <Form.Item label="DatePicker" name="birthday" rules={[{ required: true, message: 'Please input your birthday!' }]}>
+            <Form.Item label="DatePicker" name="birthday" rules={[{ required: false, message: 'Please input your birthday!' }]}>
                 <DatePicker style={{ width: '100%' }} />
             </Form.Item>
 
             <Form.Item
                 name="phone"
                 label="Phone Number"
-                rules={[{ required: true, message: 'Please input your phone number!' }]}
+                rules={[{ required: false, message: 'Please input your phone number!' }]}
             >
                 <Input style={{ width: '100%' }} />
             </Form.Item>
@@ -155,7 +148,7 @@ function RegisterForm(props) {
             <Form.Item name='motto' label="Motto">
                 <Input.TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
             </Form.Item>
-
+            {/* 
             <Form.Item
                 name="agreement"
                 valuePropName="checked"
@@ -170,7 +163,7 @@ function RegisterForm(props) {
                 <Checkbox>
                     I have read the <a href="">agreement</a>
                 </Checkbox>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit" >
                     Register

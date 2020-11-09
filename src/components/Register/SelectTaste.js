@@ -1,17 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
-    Select, Tag, Form,
-    Input,
-    Tooltip,
-    Row,
-    Col,
-    Checkbox,
+    Select,
+    Tag,
     Button,
-    DatePicker,
-    Upload,
-    Avatar,
-    Image,
-    Divider,
+
 } from 'antd';
 
 function SelectTaste(props) {
