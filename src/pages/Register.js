@@ -56,18 +56,27 @@ function Register(props) {
     }
     return (
         <Row justify="center" style={{ height: "100vh" }}>
-            <Col span={11} className="left-container" style={{ height: "100vh" }} >
-                <div className="left-content">
+            <Col span={10} style={{ height: "100vh", position: 'relative' }} >
+                <Row justify="center" className="left-content left-container" style={{ width: '40%', position: 'fixed', zindex: 3 }}  >
                     <h1 className="welcome-text">REGISTER</h1>
-                </div>
+                </Row>
             </Col>
-            <Col span={13} style={{ height: "100vh", padding: "20px" }}>
-                <Steps current={current}>
-                    {steps.map(item => (
-                        <Step key={item.title} title={item.title} />
-                    ))}
-                </Steps>
+            <Col span={14} style={{ height: "100vh", padding: "20px", border: '1px solid' }}>
+                <Row justify="center" style={{ width: '50%', position: 'fixed', zindex: 3, backgroundColor: '#fff', border: '1px solid' }} >
+                    <Steps current={current}>
+                        {steps.map(item => (
+                            <Step key={item.title} title={item.title} />
+                        ))}
+                    </Steps>
+                </Row>
                 <div className="right-content">
+                    {steps[current].content}
+                </div>
+                <div className="right-content">
+                    {steps[current].content}
+                </div><div className="right-content">
+                    {steps[current].content}
+                </div><div className="right-content">
                     {steps[current].content}
                 </div>
 
