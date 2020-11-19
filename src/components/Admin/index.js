@@ -3,7 +3,6 @@ import "antd/dist/antd.css";
 import "../../css/admin.css";
 import axios from "../../config/axios";
 import { Table, Input, Button, Space } from "antd";
-import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import {
@@ -119,13 +118,13 @@ const columns = [
       multiple: 2,
     },
   },
-  
+
 ];
 
 function Admin() {
   const [data, setData] = useState(testData)
 
-  const getUser = ()=> {
+  const getUser = () => {
     axios.get("/admin/users").then((res) => {
       setData(res.data);
     })
