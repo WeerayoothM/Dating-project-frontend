@@ -4,9 +4,10 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
-import admin from './components/Admin';
+import admin from './components/Admin/index2';
 import './css/home.css';
 import './components/Register/register.css';
+
 
 function App() {
   return (
