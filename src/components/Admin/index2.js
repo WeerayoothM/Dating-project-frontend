@@ -63,14 +63,12 @@ function Admin() {
       },
     },
     {
-      title: 'status',
-      dataIndex: 'status'
-      
-      if(status === 1){
+      title: "status",
+      dataIndex: "status",
+
       render: (text, record) => (
-          <DeleteOutlined onClick={() => deleteUser(record.status)} />
-          ),
-        }
+        <DeleteOutlined onClick={() => deleteUser(record.status)} />
+      ),
     },
     {
       title: "Birthday",
