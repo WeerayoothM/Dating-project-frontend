@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Steps, Button, message, Row, Col, notification } from 'antd';
+import { Steps, Button, message, Row, Col, notification, Affix } from 'antd';
 import RegisterForm from '../components/Register/RegisterForm';
 import SelectTaste from '../components/Register/SelectTaste';
 import UploadImage from '../components/Register/UploadImage';
@@ -56,20 +56,28 @@ function Register(props) {
     }
     return (
         <Row justify="center" style={{ height: "100vh" }}>
-            <Col span={11} className="left-container" style={{ height: "100vh" }} >
-                <div className="left-content">
+            <Col span={10} style={{ height: "100vh", position: 'relative' }} >
+                <Row justify="center" className="left-content left-container" style={{ width: '40%', position: 'fixed', zindex: 3 }}  >
                     <h1 className="welcome-text">REGISTER</h1>
-                </div>
+                </Row>
             </Col>
-            <Col span={13} style={{ height: "100vh", padding: "20px" }}>
-                <Steps current={current}>
-                    {steps.map(item => (
-                        <Step key={item.title} title={item.title} />
-                    ))}
-                </Steps>
-                <div className="right-content">
-                    {steps[current].content}
-                </div>
+            <Col span={14} style={{ height: "100vh", padding: "0 20px", width: "100%" }}>
+                {/* <Row justify='center' style={{ height: '60px', padding: '20px 0', backgroundColor: 'white' }} > */}
+                <Affix style={{ width: '90%', margin: '0 auto' }}>
+                    <Row justify="center" style={{ width: '100%', padding: '20px 0', zindex: 10, backgroundColor: '#fff', borderBottom: '1px solid hsl(0,0%,80%)' }} >
+                        <Steps current={current}>
+                            {steps.map(item => (
+                                <Step key={item.title} title={item.title} />
+                            ))}
+                        </Steps>
+                    </Row>
+                </Affix>
+                {/* </Row> */}
+                <Row justify="center" style={{ width: '100%', display: 'flex', flexDirection: 'column', position: 'relative', zindex: 1, backgroundColor: 'transparent' }} >
+                    <div className="right-content">
+                        {steps[current].content}
+                    </div>
+                </Row>
 
                 <div className="steps-action">
                     {current > 0 && (
@@ -89,7 +97,7 @@ function Register(props) {
                     )}
                 </div>
             </Col>
-        </Row>
+        </Row >
     )
 }
 
