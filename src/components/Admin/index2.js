@@ -4,7 +4,7 @@ import "../../css/admin.css";
 import axios from "../../config/axios";
 import { Table, Input, Modal, Button, Space } from "antd";
 import Highlighter from "react-highlight-words";
-import { SearchOutlined } from "@ant-design/icons";
+import { FireFilled, SearchOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 
 import {
@@ -49,6 +49,12 @@ function Admin() {
     });
   };
 
+  const changeStatus = (id) => {
+    axios.put(`./admin/users/${id}`).then((res) => {
+      console.log('status.id', id)
+      getAllUser()
+    })
+  }
   const columns = [
     {
       title: "Name",
@@ -58,7 +64,7 @@ function Admin() {
       title: "Email",
       dataIndex: "email",
       sorter: {
-        compare: (a, b) => a.chinese - b.chinese,
+        compare: (a, b) => a.email > b.email,
         multiple: 3,
       },
     },
@@ -67,14 +73,14 @@ function Admin() {
       dataIndex: "status",
 
       render: (text, record) => (
-        <DeleteOutlined onClick={() => deleteUser(record.status)} />
+        <FireFilled style={{color:`${text? "limeGreen": "red"}`}}  onClick={() => changeStatus(record.id)} />
       ),
     },
     {
       title: "Birthday",
       dataIndex: "birthday",
       sorter: {
-        compare: (a, b) => a.english - b.english,
+        compare: (a, b) => a.birthday - b.birthday,
         multiple: 1,
       },
     },
@@ -82,7 +88,7 @@ function Admin() {
       title: "Gender",
       dataIndex: "gender",
       sorter: {
-        compare: (a, b) => a.math - b.math,
+        compare: (a, b) => a.gender > b.gender,
         multiple: 2,
       },
     },
@@ -90,8 +96,8 @@ function Admin() {
       title: "Target",
       dataIndex: "target",
       sorter: {
-        compare: (a, b) => a.math - b.math,
-        multiple: 2,
+        compare: (a, b) => a.target > b.target,
+        multiple: 4,
       },
     },
     {
@@ -99,7 +105,7 @@ function Admin() {
       dataIndex: "lat",
       sorter: {
         compare: (a, b) => a.math - b.math,
-        multiple: 2,
+        multiple: 5,
       },
     },
     {
@@ -107,7 +113,7 @@ function Admin() {
       dataIndex: "long",
       sorter: {
         compare: (a, b) => a.math - b.math,
-        multiple: 2,
+        multiple: 6,
       },
     },
     {
@@ -115,7 +121,7 @@ function Admin() {
       dataIndex: "motto",
       sorter: {
         compare: (a, b) => a.math - b.math,
-        multiple: 2,
+        multiple: 7,
       },
     },
     {
