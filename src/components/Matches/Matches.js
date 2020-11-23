@@ -104,7 +104,7 @@ const data = [
 export default function Matches(props) {
   const displayProfiles = () => {
     return data.map((profile) => (
-      <div>
+      <div key={profile.id}>
         <img src={profile.images[0]}></img>
         <span>{profile.name}</span>
       </div>
@@ -118,7 +118,7 @@ export default function Matches(props) {
           <span>My Profile</span>
         </Link>
         <button>
-          <i class="fas fa-shopping-bag"></i>
+          <i className="fas fa-shopping-bag"></i>
         </button>
       </div>
       <div className="matches-tab">

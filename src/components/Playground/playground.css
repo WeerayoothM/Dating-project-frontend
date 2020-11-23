@@ -40,7 +40,7 @@
 .playground-control .fa-heart {
   color: #fd5068;
 }
-.playground-control .fa-star {
+.playground-control .fa-images {
   color: rgb(62, 122, 233);
 }
 .playground-control .fa-times {
@@ -48,4 +48,48 @@
 }
 .playground-control .fa-bolt {
   color: blueviolet;
+}
+
+.tada {
+  animation: tada 2s;
+}
+@keyframes tada {
+  0% {
+    transform: scale(1);
+  }
+  10%,
+  20% {
+    transform: scale(0.9) rotate(-3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  40%,
+  60%,
+  80% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+.rotate-right {
+  transform: rotate(30deg) scale(0.8);
+  transition: 1s;
+  margin-left: 400px;
+  cursor: e-resize;
+  opacity: 0;
+  z-index: 10;
+}
+.rotate-left {
+  transform: rotate(-30deg) scale(0.8);
+  transition: 1s;
+  opacity: 0;
+  margin-left: -400px;
+  cursor: w-resize;
+  z-index: 10;
 }
