@@ -11,6 +11,7 @@ function Navbar(props) {
                     <Col >
                         <div style={{ fontSize: "2.5rem", color: "white" }} >
                             <i class="fas fa-heartbeat"></i> &nbsp;
+                            {/* <img src={"https://toppng.com/uploads/preview/love-instagram-heart-logo-11562890691vkp75hdcke.png"} /> */}
                             <span>Dating</span>
                         </div>
                     </Col>
