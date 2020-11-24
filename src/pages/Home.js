@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import LoginModal from '../components/Login/LoginModal';
 import Navbar from '../components/Navbar/Navbar';
 
-function Home() {
+function Home(props) {
     const [visibleLoginForm, setVisibleLoginForm] = useState(false);
 
     const showModal = () => {
@@ -17,7 +17,7 @@ function Home() {
                     <div className="home-content">
                         <h1 className="home-title">Find the right person</h1>
                         <button className="btn-5" onClick={showModal}>GET STARTED</button>
-                        <LoginModal visible={visibleLoginForm} setVisible={setVisibleLoginForm} showModal={showModal} />
+                        <LoginModal setRole={props.setRole} visible={visibleLoginForm} setVisible={setVisibleLoginForm} showModal={showModal} />
                     </div>
                 </section>
             </div>

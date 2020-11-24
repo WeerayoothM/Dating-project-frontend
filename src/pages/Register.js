@@ -20,7 +20,7 @@ function Register(props) {
             .then(res => {
                 console.log(res);
                 message.success('Processing complete!');
-                props.history.push('/home');
+                props.history.push('/');
             })
             .catch(err => {
                 console.log(err)

@@ -19,7 +19,7 @@ function LoginModal(props) {
                 onCancel={handleCancel}
                 footer={null}
             >
-                <LoginForm />
+                <LoginForm setRole={props.setRole} />
             </Modal>
         </>
 

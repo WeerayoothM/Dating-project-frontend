@@ -6,8 +6,8 @@ import axios from '../../config/axios';
 import LocalStorageService from '../../services/localStorage'
 
 function Login(props) {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const onChangeEmail = (e) => {
         setEmail(e.target.value)
@@ -25,8 +25,13 @@ function Login(props) {
                     description: "Login success"
                 })
                 LocalStorageService.setToken(res.data.token);
-                props.history.push('/dashboard');
-
+                if (res.data.role === 1) {
+                    props.history.push('/admin');
+                    props.setRole("ADMIN")
+                } else {
+                    props.history.push('/dashboard');
+                    props.setRole("USER")
+                }
             })
             .catch(err => {
                 console.log(err)
@@ -35,7 +40,6 @@ function Login(props) {
                 })
             })
     };
-
 
     return (
         <main className="main">
@@ -65,5 +69,4 @@ function Login(props) {
         </main>
     )
 }
-
 export default withRouter(Login)
