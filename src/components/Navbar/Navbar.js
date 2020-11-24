@@ -10,7 +10,9 @@ function Navbar(props) {
                 <Row justify="space-between" align="middle" style={{ padding: "0 70px" }} >
                     <Col >
                         <div style={{ fontSize: "2.5rem", color: "white" }} >
-                            <i class="fas fa-heartbeat"></i> &nbsp;
+                            {/* <i class="fas fa-heartbeat"></i> */}
+                             &nbsp;
+                            {/* <img src={"https://toppng.com/uploads/preview/love-instagram-heart-logo-11562890691vkp75hdcke.png"} /> */}
                             <span>Dating</span>
                         </div>
                     </Col>

@@ -4,8 +4,10 @@ import "../../css/admin.css";
 import axios from "../../config/axios";
 import { Table, Input, Modal, Button, Space } from "antd";
 import Highlighter from "react-highlight-words";
-import { FireFilled, SearchOutlined } from "@ant-design/icons";
+import { EditOutlined, FireFilled, LogoutOutlined, SearchOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
+import LocalStorageService from '../../services/localStorage';
+import { useHistory } from 'react-router-dom'
 
 import {
   UploadOutlined,
@@ -22,7 +24,8 @@ function onChange(pagination, filters, sorter, extra) {
   console.log("params", pagination, filters, sorter, extra);
 }
 
-function Admin() {
+function Admin(props) {
+  let history = useHistory()
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -38,6 +41,7 @@ function Admin() {
   const getAllUser = async () => {
     await axios.get("/admin/users").then((res) => {
       setData(res.data);
+      console.log("rere");
     });
   };
 
@@ -51,10 +55,10 @@ function Admin() {
 
   const changeStatus = (id) => {
     axios.put(`./admin/users/${id}`).then((res) => {
-      console.log('status.id', id)
-      getAllUser()
-    })
-  }
+      console.log("status.id", id);
+      getAllUser();
+    });
+  };
   const columns = [
     {
       title: "Name",
@@ -73,7 +77,12 @@ function Admin() {
       dataIndex: "status",
 
       render: (text, record) => (
-        <FireFilled style={{color:`${text? "limeGreen": "red"}`}}  onClick={() => changeStatus(record.id)} />
+        <div>
+          <FireFilled
+            style={{ color: `${text ? "limeGreen" : "red"}` }}
+            onClick={() => changeStatus(record.id)}
+          />
+        </div>
       ),
     },
     {
@@ -128,10 +137,19 @@ function Admin() {
       title: "Action",
       dataIndex: "Action",
       render: (text, record) => (
-        <DeleteOutlined onClick={() => deleteUser(record.id)} />
+        <div>
+          <DeleteOutlined onClick={() => deleteUser(record.id)} />
+          <EditOutlined style={{ paddingLeft: "10px" }} onClick={() => alert("Bank")} />
+        </div>
       ),
     },
   ];
+
+  const logout = () => {
+    LocalStorageService.clearToken();
+    history.push('/');
+    props.setRole("GUEST");
+  }
 
   return (
     <div class="body">
@@ -149,14 +167,21 @@ function Admin() {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>
             <Menu.Item key="1" onClick={getAllUser} icon={<UserOutlined />}>
-              users
+              Users
             </Menu.Item>
             <Menu.Item
               key="2"
               onClick={() => setData([])}
               icon={<VideoCameraOutlined />}
             >
-              report
+              Report
+            </Menu.Item>
+            <Menu.Item
+              key="3"
+              onClick={logout}
+              icon={<LogoutOutlined />}
+            >
+              Logout
             </Menu.Item>
           </Menu>
         </Sider>
