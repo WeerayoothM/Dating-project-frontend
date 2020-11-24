@@ -17,15 +17,6 @@ function App() {
   const [role, setRole] = useState(LocalStorageService.getRole())
   return (
     <div className="App">
-      {/* <Switch>
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/admin" component={admin} />
-        <Route exact path="*" component={NotFound} />
-        <Redirect to="/home" />
-      </Switch> */}
       <PrivateRoutes role={role} setRole={setRole} />
 
     </div>

@@ -13,6 +13,7 @@ function PrivateRoutes(props) {
                     <Route key={idx} exact path={path}>
                         <PageComponent setRole={props.setRole} />
                     </Route>)}
+                {/* <Redirect to="/" /> */}
                 <Route path="*" component={NotFound} />
             </Switch>
         </>
