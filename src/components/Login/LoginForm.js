@@ -32,12 +32,14 @@ function Login(props) {
           description: "Login success",
         });
         LocalStorageService.setToken(res.data.token);
-        
-        if (res.data.role === 1) {
-          return props.history.push("/admin");
-        }
 
-        props.history.push("/dashboard");
+        if (res.data.role === 1) {
+          props.history.push('/admin');
+          props.setRole("ADMIN")
+      } else {
+          props.history.push('/dashboard');
+          props.setRole("USER")
+      }
         
       })
       .catch((err) => {
@@ -47,22 +49,30 @@ function Login(props) {
         });
       });
   };
+  const onFinish = (e) => {
+    e.preventDefault();
+    axios.post('/auth/login', { email, password })
+        .then(res => {
+            if (res.data.role === 1) {
+                props.history.push('/admin');
+                props.setRole("ADMIN")
+            } else {
+                props.history.push('/dashboard');
+                props.setRole("USER")
+            }
+        })
+};
 
-  return (
-    <main className="main">
-      <div className="wrapper">
-        <div className="card">
-          <div className="title">
-            <h1 className="title title-large">Sign In</h1>
-            <p className="title title-subs">
-              New user?{" "}
-              <span>
-                <a href="/register" className="linktext">
-                  Create an account
-                </a>
-              </span>
-            </p>
-          </div>
+   
+
+    return (
+        <main className="main">
+            <div className="wrapper">
+                <div className="card">
+                    <div className="title">
+                        <h1 className="title title-large">Sign In</h1>
+                        <p className="title title-subs">New user? <span><a href="/register" className="linktext">Create an account</a></span></p>
+                    </div>
 
           <form className="form" onSubmit={onFinish}>
             <div className="form-group">
