@@ -6,6 +6,10 @@ import 'antd/dist/antd.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 ReactDOM.render(
   <BrowserRouter>

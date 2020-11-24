@@ -18,7 +18,6 @@ function App() {
   return (
     <div className="App">
       <PrivateRoutes role={role} setRole={setRole} />
-
     </div>
   );
 }

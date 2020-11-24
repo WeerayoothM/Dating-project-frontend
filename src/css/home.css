@@ -1,7 +1,8 @@
 .home-container {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
   height: 80vh;
 }
 .home-content {
@@ -11,13 +12,14 @@
   align-items: center;
 }
 .home-title {
-  font-size: 7.3vw;
-  color: white;
+  font-size: 6vw;
+  color: #fffef2;
 }
 
 /* hero page */
 .background-hero-page {
-  background-image: url("https://www.pewresearch.org/wp-content/uploads/2020/08/FT_20.08.14_Dating_Featured-Image_key-takeaways.jpg");
+  /* background-image: url("https://www.pewresearch.org/wp-content/uploads/2020/08/FT_20.08.14_Dating_Featured-Image_key-takeaways.jpg"); */
+
   /* background-image: url("https://res.cloudinary.com/software-park-thailand/image/upload/v1605773165/zdohht8dbl1qlktxfqee.jpg"); */
   height: 100vh;
   background-size: cover;

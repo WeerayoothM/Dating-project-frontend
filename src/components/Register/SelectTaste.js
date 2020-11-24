@@ -1,57 +1,57 @@
 import React from 'react'
 import {
+    Row,
     Select,
-    Tag,
-    Button,
-
+    Tag
 } from 'antd';
+import FooterRegister from './FooterRegister';
 
 function SelectTaste(props) {
 
-    const options = [{ label: 'male', value: 'gold' }, { label: 'female', value: 'cyan' }, { label: 'binary', value: 'green' }, { label: 'other', value: 'lime' }]
-    const colorToGender = {
-        gold: 'male',
-        cyan: 'female',
-        green: 'binary',
-        lime: 'other',
-    }
-    const onChange = (colors) => {
-        console.log(colors)
-        props.setTasteValue(colors.map(color => colorToGender[color]))
+    const options = [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }, { label: 'binary', value: 'binary' }]
+
+    const onChange = (value) => {
+        console.log(value)
+        props.setTasteValue(value)
     }
 
     return (
-        <div style={{ width: "100%" }}>
-
-            <h1>Select your Taste</h1>
-            <Select
-                mode="multiple"
-                size="large"
-                showArrow
-                // defaultValue={['gold', 'cyan']}
-                style={{ width: '50%' }}
-                options={options}
-                tagRender={tagRender}
-                onChange={onChange}
-            />
-
-            {props.current < 2 && (
-                <Button type="primary" onClick={props.next}>
-                    Next
-                </Button>
-            )}
-        </div>
+        <>
+            <div style={{ width: "100%", height: '400px', margin: '0 auto', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <h1 className="taste-header">Select your Taste</h1>
+                <Select
+                    mode="multiple"
+                    size="large"
+                    showArrow
+                    style={{ width: '50%', cursor: 'pointer' }}
+                    placeholder='select your taste'
+                    options={options}
+                    tagRender={tagRender}
+                    onChange={onChange}
+                />
+            </div>
+            <div style={{ padding: '30px', display: 'flex', justifContent: "center" }}>
+                <FooterRegister current={props.current} next={props.next} prev={props.prev} />
+            </div>
+        </>
     )
 }
 
 export default SelectTaste
 
 function tagRender(props) {
-    const { label, value, closable, onClose } = props;
+    const { value, closable, onClose } = props;
+    const genderToColor = {
+        'male': 'gold',
+        'female': 'cyan',
+        'binary': 'green',
+        lime: 'other',
+    }
 
     return (
-        <Tag color={value} closable={closable} onClose={onClose} style={{ marginRight: 3 }}>
-            {label}
+        <Tag color={genderToColor[value]} closable={closable} onClose={onClose} style={{ marginRight: 3 }}>
+            {value}
         </Tag>
+
     );
 }
