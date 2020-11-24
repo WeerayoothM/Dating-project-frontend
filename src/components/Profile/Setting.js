@@ -3,6 +3,7 @@ import { Layout, Menu, Switch, Slider, Select, Modal, Button, Input } from 'antd
 import './Setting.css';
 import CardProfile from './CardProfile';
 import CardLocation from './CardLocation';
+import axios from '../../config/axios';
 
 const { Content, Footer } = Layout;
 const { Option } = Select;
@@ -21,26 +22,56 @@ export default function Profile(props) {
 
   const [visEditEmail, setVisEditEmail] = useState(false)
   const [visEditPhone, setVisEditPhone] = useState(false)
+
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [currentLocation, setCurrentLocation] = useState("");
+
+  let key = "AIzaSyCitLWlUqIyE-ImhLvVErONNige0x9w2Xw";
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      setLatitude(pos.coords.latitude);
+      setLongitude(pos.coords.longitude);
+    });
+    console.log(latitude + "," + longitude)
+
+  }, []);
+
+  useEffect(() => {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    axios.get(`${proxyurl}https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${key}`)
+      .then(res => {
+        setCurrentLocation(res.data.results[2].formatted_address)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [latitude, longitude]);
+
   const [showCardLocation, setShowCardLocation] = useState(false)
 
-// --------------- Edit email --------------
+  const onClickShowCardLocation = () => {
+    setShowCardLocation(showCardLocation => !showCardLocation);
+  }
+
+  // --------------- Edit email --------------
   const editEmailOk = value => {
     onChangeEmail(value);
     toggleEmail();
   };
-  const toggleEmail=()=>{
+  const toggleEmail = () => {
     setVisEditEmail(visEditEmail => !visEditEmail)
   }
-// --------------- Edit email --------------
-// --------------- Edit phone --------------
+  // --------------- Edit email --------------
+  // --------------- Edit phone --------------
   const editPhoneOk = value => {
     onChangePhone(value);
     togglePhone();
   };
-  const togglePhone=()=>{
+  const togglePhone = () => {
     setVisEditPhone(visEditPhone => !visEditPhone)
   }
-// --------------- Edit phone --------------
+  // --------------- Edit phone --------------
 
   return (
     <div style={{ width: "100vw" }}>
@@ -80,10 +111,10 @@ export default function Profile(props) {
           </Menu>
           <p>Verified Phone Number and Email help secure your account.</p>
           <Menu theme="light" mode="inline" selectedKeys="false">
-            <Menu.Item key="5" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }}>
+            <Menu.Item key="5" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }} onClick={onClickShowCardLocation}>
               <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Location</div>
-                <div>Bangwa Thailand</div>
+                <div style={{width:"200px"}}>{currentLocation}</div>
               </div>
             </Menu.Item>
             <Menu.Item key="6" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)", height: "80px" }}>
@@ -141,9 +172,8 @@ export default function Profile(props) {
             </Menu.Item>
           </Menu>
         </aside>
+        {showCardLocation ? <CardLocation data={currentLocation} fcShowCardLocation={onClickShowCardLocation} /> : <CardProfile data={data} />};
 
-        {/* <CardProfile data={data} /> */}
-        <CardLocation data={data}></CardLocation>
       </Layout>
 
       <Modal

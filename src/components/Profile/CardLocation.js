@@ -1,35 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import axios from '../../config/axios';
+
 import { BorderBottomOutlined, CheckCircleTwoTone } from '@ant-design/icons';
 
 function CardLocation(props) {
     const data = props.data;
-    const [latitude, setLatitude] = useState("");
-    const [longitude, setLongitude] = useState("");
-    let key = "AIzaSyCitLWlUqIyE-ImhLvVErONNige0x9w2Xw";
-    const [currentLocation, setCurrentLocation] = useState("")
-    
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition((pos) => {
-            setLatitude(pos.coords.latitude);
-            setLongitude(pos.coords.longitude);
-        });
-        console.log(latitude + "," + longitude)
-
-    }, []);
-
-    useEffect(() => {
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        axios.get(`${proxyurl}https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${key}`)
-            .then(res => {
-                setCurrentLocation(res.data.results[2].formatted_address)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [latitude, longitude]);
-
-
+    const onClickShowCardLocation = props.fcShowCardLocation
     return (
         <main style={{ height: "100vh" }}>
             <div style={{
@@ -87,7 +62,7 @@ function CardLocation(props) {
                         textDecoration: "none",
                         touchAction: "manipulation"
                     }}
-                        onClick={() => console.log("sdds")}
+                        onClick={onClickShowCardLocation}
                     >
                         Done
                     </a>
@@ -150,7 +125,7 @@ function CardLocation(props) {
                             flexGrow: "1"
                         }} >
                             <h3>My Current Location</h3>
-                            <h4>{currentLocation}</h4>
+                            <h4>{data}</h4>
                         </div>
                         <div style={{
                             width: "50px"
