@@ -44,7 +44,6 @@ function UploadImage(props) {
             setFileInputState('');
             setImageUrl(res.data.url)
             setMediaValue(res.data.url)
-            setSuccessMsg('Image uploaded successfully');
             notification.success({ description: 'Upload success' })
         } catch (err) {
             console.error(err);
@@ -53,7 +52,7 @@ function UploadImage(props) {
     };
 
     return (
-        <form form onSubmit={handleSubmitFile} className="form" >
+        <form onSubmit={handleSubmitFile} className="form" >
             <Avatar
                 size={200}
                 icon={imageUrl ? <img src={imageUrl} style={{ objectFit: 'cover', objectPosition: '50% 50%' }} alt="profile picture" /> : <UserOutlined />}
