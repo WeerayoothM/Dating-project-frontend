@@ -1,35 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Menu, Switch, Slider } from 'antd';
+import { Layout, Menu, Switch, Slider, Select, Modal, Button, Input } from 'antd';
 import './Setting.css';
-
+import CardProfile from './CardProfile';
+import CardLocation from './CardLocation';
 
 const { Content, Footer } = Layout;
+const { Option } = Select;
 
 export default function Profile(props) {
-  // const data = {
-  //   name : props.props.name,
-  //   email : props.props.email,
-  //   phone : props.props.mobile_number,
-  // }
+  let data = props.profile;
+  const onChangeMaxDistance = props.fcMaxDistance;
+  const onChangeAge = props.fcAge;
+  const onChangeShowMe = props.fcShow;
+  const onChangeTarget = props.fcTarget;
+  const onChangeEmail = props.fcEmail;
+  const onChangePhone = props.fcPhone
 
-  // console.log(data.name)
-  function onChange(checked) {
-    console.log(`switch to ${checked}`);
+  let editEmail = "";
+  let editPhone = "";
+
+  const [visEditEmail, setVisEditEmail] = useState(false)
+  const [visEditPhone, setVisEditPhone] = useState(false)
+  const [showCardLocation, setShowCardLocation] = useState(false)
+
+// --------------- Edit email --------------
+  const editEmailOk = value => {
+    onChangeEmail(value);
+    toggleEmail();
+  };
+  const toggleEmail=()=>{
+    setVisEditEmail(visEditEmail => !visEditEmail)
   }
+// --------------- Edit email --------------
+// --------------- Edit phone --------------
+  const editPhoneOk = value => {
+    onChangePhone(value);
+    togglePhone();
+  };
+  const togglePhone=()=>{
+    setVisEditPhone(visEditPhone => !visEditPhone)
+  }
+// --------------- Edit phone --------------
 
   return (
     <div style={{ width: "100vw" }}>
       <Layout>
-        <aside style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          minWidth: '380px',
-          maxWidth: '380px',
-          width: "380px",
-          border: "1px solid hsl(0, 0%, 90%)"
-        }}>
+        <aside className="aside_setting">
           <div className="matches">
             <div className="matches-header" style={{ zIndex: "2", position: "fixed", width: "380px", height: "75px" }}>
               <a className="matches-header__profile" href="#">
@@ -40,26 +56,27 @@ export default function Profile(props) {
           </div>
           <h2 style={{ marginTop: "80px" }}>Account Setting</h2>
           <Menu theme="light" mode="inline" selectedKeys="false">
-            <Menu.Item key="1" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }}>
+            {/* <Menu.Item key="1" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }}>
               Restore Process
-            </Menu.Item>
-            <Menu.Item key="2" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }}>
+            </Menu.Item> */}
+            <Menu.Item key="2" onClick={toggleEmail} style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }}>
               <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Email</div>
                 <div>
-
+                  {data.email}
                 </div>
               </div>
+
             </Menu.Item>
-            <Menu.Item key="3" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }}>
-              <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
+            <Menu.Item key="3" style={{}}>
+              <div onClick={togglePhone} style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Phone Number</div>
-                <div>66906251514</div>
+                <div>{data.mobile_number ? data.mobile_number : '-'}</div>
               </div>
             </Menu.Item>
-            <Menu.Item key="4" style={{}}>
+            {/* <Menu.Item key="4" style={{}}>
               Promo Code
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu>
           <p>Verified Phone Number and Email help secure your account.</p>
           <Menu theme="light" mode="inline" selectedKeys="false">
@@ -72,31 +89,39 @@ export default function Profile(props) {
             <Menu.Item key="6" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)", height: "80px" }}>
               <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Maximum Distance</div>
-                <div>80</div>
+                <div>{data.max_distance}</div>
               </div>
-              <Slider defaultValue={30} />
+              <Slider value={data.max_distance} onChange={onChangeMaxDistance} />
             </Menu.Item>
             <Menu.Item key="7" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }}>
               <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Looking For</div>
-                <div></div>
+                <Select
+                  value={data.target}
+                  style={{ width: 120 }}
+                  bordered={false}
+                  onChange={onChangeTarget}>
+                  <Option value="male">Male</Option>
+                  <Option value="female">Female</Option>
+                  <Option value="everyone">Everyone</Option>
+                </Select>
               </div>
             </Menu.Item>
-            <Menu.Item key="8" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)", height: "80px" }}>
+            <Menu.Item key="8" style={{ height: "80px" }}>
               <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Age range</div>
-                {/* <div>{`${profile.profile.target_minAge}-${profile.profile.target_maxAge}`}</div> */}
+                <div>{`${data.target_minAge} - ${data.target_maxAge}`}</div>
               </div>
-              <Slider range defaultValue={[20, 50]} />
+              <Slider range value={[data.target_minAge, data.target_maxAge]} onChange={(e) => onChangeAge(e)} />
             </Menu.Item>
-            <Menu.Item key="9" style={{}}>
+            {/* <Menu.Item key="9" style={{}}>
               <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Global</div>
                 <div>
-                  <Switch defaultChecked onChange={onChange} />
+                  <Switch defaultChecked />
                 </div>
               </div>
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu>
           <p>Going global will allow you to see people from around the world after you’ve run out of profiles nearby.</p>
           <Menu theme="light" mode="inline" selectedKeys="false">
@@ -104,7 +129,7 @@ export default function Profile(props) {
               <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Show me on Tinder</div>
                 <div>
-                  <Switch defaultChecked onChange={onChange} />
+                  <Switch defaultChecked onChange={onChangeShowMe} />
                 </div>
               </div>
             </Menu.Item>
@@ -116,16 +141,27 @@ export default function Profile(props) {
             </Menu.Item>
           </Menu>
         </aside>
-        <main style={{ height: "100vh" }}>
-          <div style={{ width: "400px", height: "620px", marginLeft: "50%", marginTop: "1%", boxShadow: "0 2px 10px 0 rgba(136,136,136,0.77)", borderRadius: "20px" }}>
-            <img src="./images/profile2.jpg" alt="" style={{ width: "100%", height: "500px", objectFit: "cover", borderRadius: "20px 20px 0px 0px" }} />
-            <div style={{}}>
-              <h1>Pongpol 25</h1>
-              <button>Edit</button>
-            </div>
-          </div>
-        </main>
+
+        {/* <CardProfile data={data} /> */}
+        <CardLocation data={data}></CardLocation>
       </Layout>
+
+      <Modal
+        title="Enter Your Email"
+        visible={visEditEmail}
+        onOk={() => editEmailOk(editEmail)}
+        onCancel={toggleEmail}
+      >
+        <Input defaultValue={data.email} onChange={e => { editEmail = e.target.value }}></Input>
+      </Modal>
+      <Modal
+        title="Enter Your Phone Number"
+        visible={visEditPhone}
+        onOk={() => editPhoneOk(editPhone)}
+        onCancel={togglePhone}
+      >
+        <Input defaultValue={data.mobile_number} onChange={e => { editPhone = e.target.value }}></Input>
+      </Modal>
     </div>
   );
 }

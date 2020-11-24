@@ -1,30 +1,119 @@
+import { notification } from 'antd';
 import React, { useState, useEffect } from 'react';
 import Setting from '../components/Profile/Setting';
 import axios from '../config/axios';
-import LocalStorageService from '../services/localStorage'
 
 function Profile() {
-  const [profile, setProfile] = useState();
-  // const [email, setEmail] = useState();
-  // const [birthDay, setBirthDay] = useState();
-  // const [gender, setGender] = useState();
-  // const [target, setTarget] = useState();
-  // const [lat, setLat] = useState();
-  // const [long, setLong] = useState();
-  // const [motto, setMotto] = useState();
-  // const [minAge, setMinAge] = useState();
-  // const [maxAge, setMaxAge] = useState();
-  // const [mobileNumber, setMobileNumber] = useState();
+  const [profile, setProfile] = useState([]);
+
+  const onChangeMaxDistance = (value) => {
+    setProfile({
+      ...profile,
+      max_distance: value
+    });
+    axios.put('/profile', { ...profile, max_distance: value })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const onChangeAge = (value) => {
+    setProfile({
+      ...profile,
+      target_minAge: value[0],
+      target_maxAge: value[1]
+    });
+    axios.put('/profile', { ...profile, target_minAge: value[0], target_maxAge: value[1] })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const onChangeShow = (value) => {
+    setProfile({
+      ...profile,
+      showMe: value
+    });
+    axios.put('/profile', { ...profile, showMe: value })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const onChangeTargetGender = (value) => {
+    setProfile({
+      ...profile,
+      target: value
+    });
+    axios.put('/profile', { ...profile, target: value })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const onChangeEmail = (value) => {
+    setProfile({
+      ...profile,
+      email: value
+    });
+    axios.put('/profile', { ...profile, email: value })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+  const onChangePhone = (value) => {
+    setProfile({
+      ...profile,
+      mobile_number: value
+    });
+    axios.put('/profile', { ...profile, mobile_number: value })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   useEffect(() => {
     axios.get("/profile")
       .then(res => {
-        setProfile(res.data.profile);
-      });
+        setProfile(data => res.data.profile);
+      })
+      .catch(err => {
+        console.log(err)
+        notification.error({
+          description: "Error"
+        })
+      })
   }, []);
-  console.log({ profile });
+
   return (
     <div style={{ display: 'flex' }}>
-      <Setting props={profile} />
+      <Setting
+        profile={profile}
+        fcMaxDistance={onChangeMaxDistance}
+        fcAge={onChangeAge}
+        fcShow={onChangeShow}
+        fcTarget={onChangeTargetGender}
+        fcEmail={onChangeEmail}
+        fcPhone={onChangePhone}
+      />
     </div>
   );
 }
