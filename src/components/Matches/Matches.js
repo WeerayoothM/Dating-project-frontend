@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './matches.css';
 import { Link } from 'react-router-dom';
+import axios from '../../config/axios';
+import ChatMessage from '../ChatMessage/ChatMessage';
+import { Button, Col, Row } from 'antd';
+import LocalStorageService from '../../services/localStorage'
+
 
 const data = [
   {
@@ -102,30 +107,66 @@ const data = [
 ];
 
 export default function Matches(props) {
+  const [matchProfile, setMatchProfile] = useState([])
+  const [content, setContent] = useState('matches')
+  const [profileUrl, setProfileUrl] = useState(null);
+  const [name, setName] = useState(null);
+  const decoded = LocalStorageService.getUserProfile();
+
+  useEffect(() => {
+    axios.get(`/users/${decoded?.id}`)
+      .then(res => {
+        setProfileUrl(res.data.Photos[0].imageUrl);
+        setName(res.data.name)
+      }).catch(err => {
+        console.log(err)
+      })
+  })
+
   const displayProfiles = () => {
-    return data.map((profile) => (
+    return matchProfile.map((profile) => (
       <div key={profile.id}>
-        <img src={profile.images[0]}></img>
+        <img src={profile.Photos[0].imageUrl} ></img>
         <span>{profile.name}</span>
       </div>
     ));
   };
+
+  const getMatchedProfile = () => {
+    axios.get('/play/matches')
+      .then(res => {
+        console.log('res', res.data)
+        setMatchProfile(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    getMatchedProfile();
+  }, [])
+
   return (
-    <div className="matches">
-      <div className="matches-header">
+    <Col xs={10} sm={9} md={8} lg={6} xl={6} className="matches" >
+      <Row className="matches-header">
         <Link to="/profile" className="matches-header__profile" href="#">
-          <img src="./images/profile.jpg" alt="" />
+          <img src={profileUrl} alt="" />
           <span>My Profile</span>
         </Link>
-        <button>
+        <button style={{ outline: 'none' }}>
           <i className="fas fa-shopping-bag"></i>
         </button>
-      </div>
-      <div className="matches-tab">
-        <a href="#">Matches</a>
-        <a href="#">Messages</a>
-      </div>
-      <div className="matches-profiles">{displayProfiles()}</div>
-    </div>
+      </Row>
+      <Row className="matches-tab">
+        <Button type="link" onClick={() => setContent('matches')}>Matches</Button>
+        <Button type="link" onClick={() => setContent('message')}>Messages</Button>
+      </Row>
+      {content === 'matches' ?
+        <Row className="matches-profiles">{displayProfiles()}</Row>
+        :
+        <ChatMessage />
+      }
+    </Col>
   );
 }

@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./playground.css";
 import axios from "../../config/axios";
+import { Col, Row } from "antd";
 
 export default function Playground() {
   const profileEl = useRef(null);
+  const profileImageEl = useRef(null);
+
+
   const [name, setName] = useState("");
   const [birthDay, setBirthDay] = useState(null);
   const [photos, setPhotos] = useState([]);
@@ -23,7 +27,12 @@ export default function Playground() {
   }, []);
 
   const getNextPhoto = () => {
-    setPhotoIndex((photoIndex + 1) % photos.length);
+    profileImageEl.current.classList.add('slide-left');
+    setTimeout(() => {
+      profileImageEl.current.classList.remove("slide-left");
+      profileImageEl.current.classList.add("show-next-image");
+      setPhotoIndex((photoIndex + 1) % photos.length);
+    }, 500);
   };
 
   const handleLike = async () => {
@@ -39,7 +48,7 @@ export default function Playground() {
 
       setTimeout(() => {
         getNextProfile();
-      }, 1000);
+      }, 900);
     } catch (err) {
       console.error(err);
     }
@@ -49,7 +58,7 @@ export default function Playground() {
     profileEl.current.classList.add("rotate-left");
     setTimeout(() => {
       getNextProfile();
-    }, 1000);
+    }, 600);
   };
 
   const getNextProfile = () => {
@@ -80,9 +89,9 @@ export default function Playground() {
     var a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c; // Distance in km
     return d;
@@ -98,9 +107,10 @@ export default function Playground() {
       ? photos[photoIndex].imageUrl
       : `http://localhost:5555/${photos[0].imageUrl}`);
   return (
-    <div className="playground">
-      <div ref={profileEl} className="playground-profile">
-        <img src={image_url} alt="" />
+
+    <Col xs={14} sm={15} md={16} lg={18} xl={18} className="playground" style={{ backgroundColor: 'hsl(0,0%,97%)', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+      <div justify='center' ref={profileEl} className="playground-profile">
+        <img className="profile-image" ref={profileImageEl} src={image_url} alt="" />
         <span>
           {name} {distance}km.
         </span>
@@ -122,6 +132,6 @@ export default function Playground() {
           <i className="fas fa-bolt"></i>
         </div>
       </div>
-    </div>
+    </Col>
   );
 }

@@ -1,14 +1,21 @@
 .playground {
   margin: 0 auto;
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .playground-profile {
-  width: 375px;
+  width: 400px;
   position: relative;
+  margin: 15px 0;
+  /* margin: 0 auto; */
 }
 .playground-profile img {
   width: 100%;
+  height: 500px;
   border-radius: 10px;
+  object-fit: cover;
   box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
 }
 .playground-profile span {
@@ -25,17 +32,24 @@
 }
 
 .playground-control > div {
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
   margin: 0.5rem;
   text-align: center;
-  padding-top: 0.8rem;
+  padding-top: 1rem;
   cursor: pointer;
+  transition: 0.25s all ease;
+}
+.playground-control > div:hover {
+  transform: scale(1.3);
 }
 .playground-control i {
-  font-size: 1.5rem;
+  font-size: 2rem;
+}
+.playground-control .fa-undo {
+  color: #e3e654;
 }
 .playground-control .fa-heart {
   color: #fd5068;
@@ -89,7 +103,21 @@
   transform: rotate(-30deg) scale(0.8);
   transition: 1s;
   opacity: 0;
-  margin-left: -400px;
+  margin-left: -375px;
   cursor: w-resize;
   z-index: 10;
+}
+
+.slide-left {
+  /* overflow: hidden; */
+  transition: 0.5s;
+  opacity: 0;
+  margin-left: -60px;
+  cursor: w-resize;
+  z-index: 10;
+  overflow-x: auto;
+}
+
+.show-next-image {
+  transition: 0.5s;
 }

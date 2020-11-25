@@ -17,7 +17,7 @@ function Register(props) {
 
     const onSubmit = () => {
         console.log("formvalue :", formValue)
-        axios.post('/auth/register', { ...formValue, target: tasteValue[0], imageUrl: mediaValue })
+        axios.post('/users/register', { ...formValue, target: tasteValue[0], imageUrl: mediaValue })
             .then(res => {
                 console.log(res);
                 message.success('Processing complete!');

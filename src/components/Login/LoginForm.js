@@ -20,7 +20,7 @@ function Login(props) {
   const onFinish = (e) => {
     e.preventDefault();
     axios
-      .post("/auth/login", { email, password })
+      .post("/users/login", { email, password })
       .then((res) => {
         if (res.data.status === 0) {
           return (
