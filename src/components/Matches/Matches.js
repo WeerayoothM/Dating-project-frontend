@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './matches.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from '../../config/axios';
 import ChatMessage from '../ChatMessage/ChatMessage';
 import { Button, Col, Row } from 'antd';
 import LocalStorageService from '../../services/localStorage'
+import { BASE_BACKEND_URL } from '../../config/constants'
+import io from 'socket.io-client';
+
 
 
 const data = [
@@ -111,7 +114,27 @@ export default function Matches(props) {
   const [content, setContent] = useState('matches')
   const [profileUrl, setProfileUrl] = useState(null);
   const [name, setName] = useState(null);
+  const [socket, setSocket] = useState(null);
+  const [message, setMessage] = useState([]);
   const decoded = LocalStorageService.getUserProfile();
+  const history = useHistory()
+
+  useEffect(() => {
+    const newSocket = io.connect(BASE_BACKEND_URL, {
+      query: {
+        token: LocalStorageService.getToken(),
+      },
+    })
+    setSocket(newSocket)
+  }, [])
+
+  const selectProfile = (profileId) => {
+    console.log('selectProfileId', profileId)
+    setContent('message')
+    props.setSelectUser(profileId)
+  }
+
+
 
   useEffect(() => {
     axios.get(`/users/${decoded?.id}`)
@@ -125,7 +148,7 @@ export default function Matches(props) {
 
   const displayProfiles = () => {
     return matchProfile.map((profile) => (
-      <div key={profile.id}>
+      <div className="matches-profile-item" key={profile.id} onClick={() => selectProfile(profile.id)} style={{ cursor: 'pointer' }} >
         <img src={profile.Photos[0].imageUrl} ></img>
         <span>{profile.name}</span>
       </div>
@@ -147,6 +170,18 @@ export default function Matches(props) {
     getMatchedProfile();
   }, [])
 
+  const changeToMessage = () => {
+    setContent('message')
+  }
+
+
+  const changeToMatch = () => {
+    setContent('matches');
+    props.setSelectUser(null)
+  }
+
+
+
   return (
     <Col xs={10} sm={9} md={8} lg={6} xl={6} className="matches" >
       <Row className="matches-header">
@@ -154,18 +189,18 @@ export default function Matches(props) {
           <img src={profileUrl} alt="" />
           <span>My Profile</span>
         </Link>
-        <button style={{ outline: 'none' }}>
+        <button style={{ outline: 'none' }} onClick={() => { LocalStorageService.clearToken(); history.push('/'); window.location.reload() }} >
           <i className="fas fa-shopping-bag"></i>
         </button>
       </Row>
-      <Row className="matches-tab">
-        <Button type="link" onClick={() => setContent('matches')}>Matches</Button>
-        <Button type="link" onClick={() => setContent('message')}>Messages</Button>
+      <Row className="matches-tab" >
+        <button className='content-btn--matches' onClick={changeToMatch}  >Matches</button>
+        {content === 'message' ? <button className='content-btn--message' onClick={changeToMessage} >Messages</button> : null}
       </Row>
       {content === 'matches' ?
-        <Row className="matches-profiles">{displayProfiles()}</Row>
+        <Row data-aos='slide-up' className="matches-profiles">{displayProfiles()}</Row>
         :
-        <ChatMessage />
+        <ChatMessage socket={socket} selectUser={props.selectUser} message={message} setMessage={setMessage} />
       }
     </Col>
   );

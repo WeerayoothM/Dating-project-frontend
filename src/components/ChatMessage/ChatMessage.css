@@ -3,10 +3,24 @@
   justify-content: space-between;
   flex-direction: column;
   height: 83vh;
+  transition: all 0.75s ease;
 }
 
-.chat-message {
+.chat-container--sender {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.chat-container--receiver {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.chat-log {
   flex-grow: 2;
+  padding: 10px 5px;
+  overflow: scroll;
   border-bottom: 1px solid hsl(0, 0%, 90%);
 }
 
@@ -28,4 +42,93 @@
   height: 6vh;
   font-size: 1.1rem;
   flex-grow: 2;
+}
+
+/* chat-box */
+
+.header-container {
+  background-color: gray;
+  padding: 4px;
+}
+.header-text {
+  color: white;
+  padding: 0px 5px;
+}
+
+.chat-box {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 20px;
+  background-color: hsl(0, 0%, 80%);
+  height: 30px;
+  max-width: 100%;
+  text-wrap: break-word;
+  border-radius: 50px;
+  margin: 5px 10px;
+}
+.green-box--sender {
+  background-color: rgb(94, 255, 102);
+}
+.green-box--receiver {
+  background-color: rgb(216, 216, 216);
+}
+
+.green-shape {
+  display: flex;
+  position: absolute;
+  z-index: -2;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  background-color: rgb(94, 255, 102);
+}
+
+.green-shape--sender {
+  top: -8px;
+  right: -2px;
+}
+.green-shape--receiver {
+  top: -8px;
+  left: -2px;
+  background-color: rgb(216, 216, 216);
+}
+
+.white-shape {
+  display: flex;
+  position: absolute;
+  z-index: -1;
+  top: -22px;
+  right: 0px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  background-color: white;
+}
+.white-shape--sender {
+  top: -22px;
+  right: 0px;
+}
+.white-shape--receiver {
+  top: -22px;
+  left: 0px;
+}
+
+.darkgray-box {
+  background-color: hsl(0, 0%, 40%);
+  color: white;
+}
+.chat-text {
+  font-family: "Prompt", sans-serif;
+  font-size: 1rem;
+  text-wrap: break-word;
+}
+@media screen and (max-width: 767px) {
+  .header-container {
+    background-color: whitesmoke;
+  }
 }
