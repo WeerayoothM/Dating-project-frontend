@@ -5,6 +5,7 @@ import axios from '../config/axios';
 
 function Profile() {
   const [profile, setProfile] = useState([]);
+  console.log(profile)
 
   const onChangeMaxDistance = (value) => {
     setProfile({
