@@ -82,7 +82,7 @@ export default function Matches(props) {
 
 
   return (
-    <Col xs={10} sm={9} md={8} lg={6} xl={6} className="matches" >
+    <Col xs={10} sm={9} md={8} lg={7} xl={6} className="matches" >
       <Row className="matches-header">
         <Link to="/profile" className="matches-header__profile" href="#">
           <img src={profileUrl} alt="" />

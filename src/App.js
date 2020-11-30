@@ -4,7 +4,7 @@ import './components/Register/register.css';
 import { useEffect, useState } from 'react';
 import LocalStorageService from './services/localStorage';
 import PrivateRoutes from './containers/PrivateRoutes/PrivateRoutes';
-import jwt_decode from "jwt-decode";
+
 
 function App() {
   const [role, setRole] = useState(LocalStorageService.getRole())

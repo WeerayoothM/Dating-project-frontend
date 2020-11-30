@@ -108,7 +108,7 @@ export default function Playground() {
       : `http://localhost:5555/${photos[0].imageUrl}`);
   return (
 
-    <Col xs={14} sm={15} md={16} lg={18} xl={18} className="playground" style={{ backgroundColor: 'hsl(0,0%,97%)', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+    <Col xs={14} sm={15} md={16} lg={17} xl={18} className="playground" style={{ backgroundColor: 'hsl(0,0%,97%)', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
       <div justify='center' ref={profileEl} className="playground-profile">
         <img className="profile-image" ref={profileImageEl} src={image_url} alt="" />
         <span>
