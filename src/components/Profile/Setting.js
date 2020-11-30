@@ -4,6 +4,7 @@ import './Setting.css';
 import CardProfile from './CardProfile';
 import CardLocation from './CardLocation';
 import axios from '../../config/axios';
+import CardProfileEdit from './CardProfileEdit';
 
 const { Content, Footer } = Layout;
 const { Option } = Select;
@@ -33,8 +34,6 @@ export default function Profile(props) {
       setLatitude(pos.coords.latitude);
       setLongitude(pos.coords.longitude);
     });
-    console.log(latitude + "," + longitude)
-
   }, []);
 
   useEffect(() => {
@@ -49,9 +48,14 @@ export default function Profile(props) {
   }, [latitude, longitude]);
 
   const [showCardLocation, setShowCardLocation] = useState(false)
+  const [showCardProfileEdit, setShowCardProfileEdit] = useState(false)
 
   const onClickShowCardLocation = () => {
     setShowCardLocation(showCardLocation => !showCardLocation);
+  }
+  const onClickShowCardEditProfile = () => {
+    console.log("object")
+    setShowCardProfileEdit(showCardProfileEdit => !showCardProfileEdit);
   }
 
   // --------------- Edit email --------------
@@ -76,16 +80,56 @@ export default function Profile(props) {
   return (
     <div style={{ width: "100vw" }}>
       <Layout>
-        <aside className="aside_setting">
+        <aside className="aside_setting" style={{
+          border: "0",
+          margin: "0",
+          padding: "0",
+        }}>
           <div className="matches">
-            <div className="matches-header" style={{ zIndex: "2", position: "fixed", width: "380px", height: "75px" }}>
-              <a className="matches-header__profile" href="#">
-                <img src="./images/profile2.jpg" alt="" style={{ objectFit: "cover" }} />
+            <div className="matches-header" style={{
+              zIndex: "2",
+              position: "fixed",
+              width: "330px",
+              height: "75px"
+            }}>
+              <svg
+                viewBox="0 0 24 24"
+                focusable="false"
+                aria-aria-hidden="true"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  fill: "currentcolor",
+                  verticalAlign: "middle",
+                  backgroundRepeat: "no-repeat",
+                  boxSizing: "inherit"
+                }}>
+                <path style={{
+                  fill: "#fff",
+                  backgroundRepeat: "no-repeat",
+                  boxSizing: "inherit"
+                }}
+                  d="M13.98 20.717a1.79 1.79 0 0 0 2.685 0 1.79 1.79 0 0 0 0-2.684l-7.158-6.62 7.158-6.8a1.79 1.79 0 0 0 0-2.684 1.79 1.79 0 0 0-2.684 0L5.929 9.98a1.79 1.79 0 0 0 0 2.684l8.052 8.052z"
+                >
+                </path>
+              </svg>
+              <a className="matches-header__profile" href="#" style={{
+                width: "230px"
+              }}>
+                <img
+                  src="./images/profile2.jpg"
+                  alt=""
+                  style={{
+                    objectFit: "cover",
+                    width: "50px",
+                    height: "50px"
+                  }}
+                />
                 <span>My Profile</span>
               </a>
             </div>
           </div>
-          <h2 style={{ marginTop: "80px" }}>Account Setting</h2>
+          <h3 style={{ marginTop: "80px" }}>Account Setting</h3>
           <Menu theme="light" mode="inline" selectedKeys="false">
             {/* <Menu.Item key="1" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }}>
               Restore Process
@@ -97,7 +141,6 @@ export default function Profile(props) {
                   {data.email}
                 </div>
               </div>
-
             </Menu.Item>
             <Menu.Item key="3" style={{}}>
               <div onClick={togglePhone} style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
@@ -114,7 +157,7 @@ export default function Profile(props) {
             <Menu.Item key="5" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)" }} onClick={onClickShowCardLocation}>
               <div style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
                 <div>Location</div>
-                <div style={{width:"200px"}}>{currentLocation}</div>
+                <div style={{ width: "200px" }}>{currentLocation}</div>
               </div>
             </Menu.Item>
             <Menu.Item key="6" style={{ borderBottom: "1px solid hsl(0, 0%, 90%)", height: "80px" }}>
@@ -172,8 +215,12 @@ export default function Profile(props) {
             </Menu.Item>
           </Menu>
         </aside>
-        {showCardLocation ? <CardLocation data={currentLocation} fcShowCardLocation={onClickShowCardLocation} /> : <CardProfile data={data} />};
 
+        {showCardLocation || showCardProfileEdit ?
+          showCardLocation ?
+            <CardLocation data={currentLocation} fcShowCardLocation={onClickShowCardLocation} />
+            : <CardProfileEdit fcOnClickShowProfileEdit={onClickShowCardEditProfile}></CardProfileEdit>
+          : <CardProfile fcOnClickShowProfileEdit={onClickShowCardEditProfile} data={data} />};
       </Layout>
 
       <Modal
