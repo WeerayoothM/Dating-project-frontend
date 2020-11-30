@@ -1,5 +1,5 @@
 import { Button, Col, notification, Row } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './ChatMessage.css'
 import { SendOutlined } from "@ant-design/icons";
 import LocalStorageService from '../../services/localStorage'
@@ -10,30 +10,46 @@ const token = LocalStorageService.getToken();
 
 
 function ChatMessage(props) {
-    const { message, setMessage } = props;
+    const [message, setMessage] = useState([]);
+    const [roomId, setRoomId] = useState(null);
     const socket = props.socket;
     const [inputValue, setInputValue] = useState("");
     const history = useHistory()
+    const messageRef = useRef(null)
 
     const user = LocalStorageService.getUserProfile();
 
     useEffect(() => {
-        socket.on('new_message', (data) => {
-            const temp = [...message];
-            if (props.selectUser === data.userId || user.id === data.userId) {
-                temp.push({ message: data.message, userId: data.userId, oppositeUserId: props.selectUser })
-            }
+        console.log('in chatmessage')
 
-            console.log(temp)
-            setMessage(temp)
-        })
-        socket.on('room-data', roomData => {
-            console.log("roomdata", roomData)
-            const temp = roomData.reduce((acc, item) => {
+        socket.on('new_message', ({ newMessage, chatRoomId }) => {
+            const oldmessage = getMessages()
+            console.log('message', oldmessage)
+            // const temp = [...oldmessage];
+            // if (roomId === data.roomId && (props.selectUser === data.userId || user.id === data.userId)) {
+            //     temp.push({ message: data.message, userId: data.userId, oppositeUserId: props.selectUser })
+            // }
+            const temp = newMessage.reduce((acc, item) => {
                 acc.push({ message: item.message, userId: item.User.id })
                 return acc
             }, [])
             setMessage(temp)
+            messageRef.current && messageRef.current.scrollTo(0, 10000000)
+        })
+
+        socket.on('room-data', ({ roomData, chatRoomId }) => {
+            console.log('in room-data', roomData)
+
+            setRoomId(chatRoomId)
+            const temp = roomData.reduce((acc, item) => {
+                acc.push({ message: item.message, userId: item.User.id })
+                return acc
+            }, [])
+            console.log('temp2', temp)
+            setMessage(temp)
+            messageRef.current.scrollTo(0, 100000000)
+            // window.scrollTo(0, document.body.scrollHeight)
+
         })
         socket.on('token-expired', (data) => {
             notification.error({
@@ -44,11 +60,22 @@ function ChatMessage(props) {
             socket.close()
         })
 
-    })
+
+        return () => {
+            console.log('unmount')
+            setMessage([])
+        }
+    }, [])
+
+    const getMessages = () => {
+        console.log('getMessages', message)
+        return message
+    }
 
     const send = (e) => {
         e.preventDefault()
-        console.log(user.id)
+        // console.log(user.id)
+        console.log('sendmessage', message)
         socket.emit('sent_message', { message: inputValue, userId: user.id, oppositeUserId: props.selectUser })
         setInputValue('')
     }
@@ -61,7 +88,7 @@ function ChatMessage(props) {
                 flexDirection: 'column',
                 height: '100%'
             }}>
-                <div className="chat-log">
+                <div ref={messageRef} className="chat-log">
                     <span>{props.selectUser}</span>
                     {message.map((value) => {
                         if (value.userId === user.id) {

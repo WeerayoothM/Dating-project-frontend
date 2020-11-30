@@ -57,6 +57,7 @@
 }
 .matches-profiles > div {
   width: 33%;
+  height: 90px;
   padding: 5px;
   position: relative;
   transition: all 0.5s ease;

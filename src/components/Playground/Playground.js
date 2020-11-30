@@ -58,7 +58,7 @@ export default function Playground() {
     profileEl.current.classList.add("rotate-left");
     setTimeout(() => {
       getNextProfile();
-    }, 600);
+    }, 900);
   };
 
   const getNextProfile = () => {
