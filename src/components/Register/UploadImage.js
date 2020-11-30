@@ -6,6 +6,7 @@ import {
 import React, { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import axios from '../../config/axios';
+import FooterRegister from './FooterRegister';
 
 
 function UploadImage(props) {
@@ -52,24 +53,28 @@ function UploadImage(props) {
     };
 
     return (
-        <form onSubmit={handleSubmitFile} className="form" >
-            <Avatar
-                size={200}
-                icon={imageUrl ? <img src={imageUrl} style={{ objectFit: 'cover', objectPosition: '50% 50%' }} alt="profile picture" /> : <UserOutlined />}
-            />
-            <Divider />
-            <input
-                id="fileInput"
-                type="file"
-                name="image"
-                onChange={handleFileInputChange}
-                value={fileInputState}
-                className="form-input"
-            />
-            <button className="btn" type="submit">
-                Submit
+        <>
+            <form onSubmit={handleSubmitFile} className="form" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
+                <Avatar
+                    size={200}
+                    icon={imageUrl ? <img src={imageUrl} style={{ objectFit: 'cover', objectPosition: '50% 50%' }} alt="profile picture" /> : <UserOutlined />}
+                />
+                <Divider />
+                <input
+                    id="fileInput"
+                    type="file"
+                    name="image"
+                    onChange={handleFileInputChange}
+                    value={fileInputState}
+                    className="form-input"
+                />
+                <button className="btn" type="submit">
+                    Submit
             </button>
-        </form >
+
+            </form >
+            <FooterRegister onSubmit={props.onSubmit} current={props.current} next={props.next} prev={props.prev} />
+        </>
     )
 }
 

@@ -7,9 +7,6 @@
   object-fit: cover;
 }
 
-.left-content {
-}
-
 .welcome-text {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 5vw;
@@ -20,7 +17,17 @@
 .right-content {
   margin-top: 50px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 80vh;
+  /* min-height: 50vh; */
+}
+
+.taste-header {
+  /* color: linear-gradient(225deg, #ff5b9a 0%, #f01967 100%); */
+  /* color: #f01967; */
+  font-size: 3vw;
+  background: -webkit-linear-gradient(#ff5b9a, #f01967);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

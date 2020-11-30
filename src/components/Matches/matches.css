@@ -1,10 +1,15 @@
 .matches {
   width: 375px;
+  height: 100vh;
+  display: "flex";
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid hsl(0, 0%, 90%);
 }
 
 .matches-header {
   box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
-  height: 60px;
+  height: 10vh;
   background: linear-gradient(262deg, #ff7854, #fd267d);
   display: flex;
   justify-content: space-between;
@@ -19,6 +24,7 @@
   border: 3px solid white;
   border-radius: 50%;
   width: 36px;
+  height: 36px;
 }
 
 .matches-header__profile span {
@@ -33,7 +39,10 @@
 }
 .matches-tab {
   display: flex;
+  justify-content: space-evenly;
+  height: 7vh;
   padding: 10px 20px;
+  border-bottom: 1px solid hsl(0, 0%, 90%);
 }
 .matches-tab a {
   color: black;
@@ -48,11 +57,18 @@
 }
 .matches-profiles > div {
   width: 33%;
+  height: 90px;
   padding: 5px;
   position: relative;
+  transition: all 0.5s ease;
+}
+.matches-profiles > div:hover {
+  transform: scale(1.2);
 }
 .matches-profiles > div > img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 5px;
   box-shadow: 0 1px 8px 0 rgba(0, 17, 25, 0.27);
 }
@@ -62,4 +78,27 @@
   bottom: 10px;
   font-weight: 700;
   color: white;
+}
+
+.content-btn--matches {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  color: #fd267d;
+  font-weight: 500;
+}
+/* .content-btn--matches:focus {
+  background-color: hsl(0, 0%, 90%);
+} */
+
+.content-btn--message {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  color: #fd267d;
+  font-weight: 500;
+}
+
+.focus {
+  background-color: hsl(0, 0%, 90%);
 }

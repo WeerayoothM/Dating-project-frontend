@@ -7,6 +7,7 @@ import {
 } from 'antd';
 import React from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import FooterRegister from './FooterRegister';
 
 const formItemLayout = {
     labelCol: {
@@ -32,12 +33,10 @@ const tailFormItemLayout = {
 };
 
 function RegisterForm(props) {
-
     const [form] = Form.useForm();
 
     const onFinish = values => {
         const { name, phone, password, email, gender, motto, birthday } = values;
-        console.log(birthday.valueOf());
         props.setFormValue({ name, phone, password, email, gender, motto, "birthday": Math.round(birthday.valueOf() / 1000) })
         props.next();
     };
@@ -147,27 +146,11 @@ function RegisterForm(props) {
             <Form.Item name='motto' label="Motto">
                 <Input.TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
             </Form.Item>
-            {/* 
-            <Form.Item
-                name="agreement"
-                valuePropName="checked"
-                rules={[
-                    {
-                        validator: (_, value) =>
-                            value ? Promise.resolve() : Promise.reject('Should accept agreement'),
-                    },
-                ]}
-                {...tailFormItemLayout}
-            >
-                <Checkbox>
-                    I have read the <a href="">agreement</a>
-                </Checkbox>
-            </Form.Item> */}
+
             <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit" >
-                    Register
-                </Button>
+                <FooterRegister onFinish={onFinish} current={props.current} next={props.next} prev={props.prev} />
             </Form.Item>
+
         </Form>
     )
 

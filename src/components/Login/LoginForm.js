@@ -20,7 +20,7 @@ function Login(props) {
   const onFinish = (e) => {
     e.preventDefault();
     axios
-      .post("/auth/login", { email, password })
+      .post("/users/login", { email, password })
       .then((res) => {
         if (res.data.status === 0) {
           return (
@@ -53,21 +53,14 @@ function Login(props) {
 
   return (
     <main className="main">
-      <div className="wrapper">
+      <div className="wrapper" style={{ padding: '20px 20px 0 20px' }} >
         <div className="card">
           <div className="title">
             <h1 className="title title-large">Sign In</h1>
-            <p className="title title-subs">
-              New user?{" "}
-              <span>
-                <a href="/register" className="linktext">
-                  Create an account
-                </a>
-              </span>
-            </p>
+            <p className="title title-subs">New user? <span><a href="/register" className="linktext">Create an account</a></span></p>
           </div>
 
-          <form className="form" onSubmit={onFinish}>
+          <form className="form" onSubmit={onFinish} style={{ paddingBottm: '0' }} >
             <div className="form-group">
               <Input
                 className="input-field"
@@ -89,16 +82,17 @@ function Login(props) {
                 required
               />
               {/* <input values={password} onChange={onChangePassword} type="password" name="password" id="password" className="input-field" placeholder="Password" /> */}
-            </div>
+            </div><br />
             <div className="form-group">
               <a href="/home" className="linktext">
-                Forgot Password
+                {/* Forgot Password */}
               </a>
               <button className="input-submit" type="submit">
                 Login
               </button>
             </div>
           </form>
+
         </div>
       </div>
     </main>

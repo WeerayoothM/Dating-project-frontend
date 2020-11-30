@@ -2,38 +2,74 @@ import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
 import "../../css/admin.css";
 import axios from "../../config/axios";
-import { Table, Input, Modal, Button, Space } from "antd";
-import Highlighter from "react-highlight-words";
-import { EditOutlined, FireFilled, LogoutOutlined, SearchOutlined } from "@ant-design/icons";
+import { Table, Input, InputNumber, Form, Popconfirm } from "antd";
+import { EditOutlined, FireFilled, LogoutOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import LocalStorageService from '../../services/localStorage';
-import { useHistory } from 'react-router-dom'
+import LocalStorageService from "../../services/localStorage";
+import { useHistory } from "react-router-dom";
 
 import {
-  UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  PicCenterOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input;
 
-function onChange(pagination, filters, sorter, extra) {
-  console.log("params", pagination, filters, sorter, extra);
-}
-
 function Admin(props) {
-  let history = useHistory()
+  const [form] = Form.useForm();
+  const history = useHistory();
   const [data, setData] = useState([]);
+  const [editingKey, setEditingKey] = useState("");
+
+  const isEditing = (record) => record.id === editingKey;
+
+  const edit = (record) => {
+    form.setFieldsValue({
+      name: "",
+      age: "",
+      address: "",
+      ...record,
+    });
+    setEditingKey(record.id);
+  };
+
+  const cancel = () => {
+    setEditingKey("");
+  };
+
+  const save = async (id) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...data];
+      const index = newData.findIndex((item) => id === item.id);
+      //console.log("row", row);
+      // save to backend
+      axios.post(`/admin/users/${id}`, row);
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, { ...item, ...row });
+        setData(newData);
+        setEditingKey("");
+      } else {
+        newData.push(row);
+        setData(newData);
+        setEditingKey("");
+      }
+    } catch (errInfo) {
+      console.log("Validate Failed:", errInfo);
+    }
+  };
+
+  // On loading procedure
 
   useEffect(() => {
     getAllUser();
   }, []);
 
   const deleteUser = async (id) => {
-    console.log("id", id);
+    //console.log("id", id);
     await axios.delete(`/admin/users/${id}`).then((res) => {
       getAllUser();
     });
@@ -41,7 +77,7 @@ function Admin(props) {
   const getAllUser = async () => {
     await axios.get("/admin/users").then((res) => {
       setData(res.data);
-      console.log("rere");
+      //console.log("rere");
     });
   };
 
@@ -55,7 +91,7 @@ function Admin(props) {
 
   const changeStatus = (id) => {
     axios.put(`./admin/users/${id}`).then((res) => {
-      console.log("status.id", id);
+      //console.log("status.id", id);
       getAllUser();
     });
   };
@@ -63,10 +99,13 @@ function Admin(props) {
     {
       title: "Name",
       dataIndex: "name",
+      editable: true,
     },
     {
       title: "Email",
       dataIndex: "email",
+      editable: true,
+
       sorter: {
         compare: (a, b) => a.email > b.email,
         multiple: 3,
@@ -134,22 +173,65 @@ function Admin(props) {
       },
     },
     {
-      title: "Action",
+      title: "Delete",
       dataIndex: "Action",
       render: (text, record) => (
         <div>
           <DeleteOutlined onClick={() => deleteUser(record.id)} />
-          <EditOutlined style={{ paddingLeft: "10px" }} onClick={() => alert("Bank")} />
         </div>
       ),
     },
+    {
+      title: "Edit",
+      dataIndex: "operation",
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <a
+              href="javascript:;"
+              onClick={() => save(record.id)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </a>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <a disabled={editingKey !== ""} onClick={() => edit(record)}>
+            Edit
+          </a>
+        );
+      },
+    },
   ];
+
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === "age" ? "number" : "text",
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
 
   const logout = () => {
     LocalStorageService.clearToken();
-    history.push('/');
+    history.push("/");
     props.setRole("GUEST");
-  }
+  };
 
   return (
     <div class="body">
@@ -176,11 +258,7 @@ function Admin(props) {
             >
               Report
             </Menu.Item>
-            <Menu.Item
-              key="3"
-              onClick={logout}
-              icon={<LogoutOutlined />}
-            >
+            <Menu.Item key="3" onClick={logout} icon={<LogoutOutlined />}>
               Logout
             </Menu.Item>
           </Menu>
@@ -203,7 +281,17 @@ function Admin(props) {
                 size="small"
                 onSearch={(value) => onSearch2(value)}
               />
-              <Table columns={columns} dataSource={data} onChange={onChange} />
+              <Form form={form} component={false}>
+                <Table
+                  components={{
+                    body: {
+                      cell: EditableCell,
+                    },
+                  }}
+                  columns={mergedColumns}
+                  dataSource={data}
+                />
+              </Form>
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
@@ -216,3 +304,38 @@ function Admin(props) {
   );
 }
 export default Admin;
+
+const EditableCell = ({
+  editing,
+  dataIndex,
+  title,
+  inputType,
+  record,
+  index,
+  children,
+  ...restProps
+}) => {
+  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex}
+          style={{
+            margin: 0,
+          }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
+};

@@ -58,11 +58,12 @@ body {
   font-family: inherit;
   font-size: 0.95rem;
   line-height: inherit;
-  color: #148cb8;
+  color: #f01967;
   text-rendering: optimizeLegibility;
 }
 .linktext:hover {
   text-decoration: underline;
+  color: #f01967;
 }
 .title {
   font-family: inherit;
@@ -117,8 +118,14 @@ body {
   border-radius: 2rem;
   text-align: center;
   color: #fff;
-  background: #148cb8;
+  transition: all 0.25s ease;
+  background-image: linear-gradient(225deg, #ff5b9a 0%, #f01967 100%);
 }
+.input-submit:hover {
+  box-shadow: 5px -5px 25px 0px rgba(255, 118, 232, 0.801),
+    -5px 5px 25px 0px rgba(231, 104, 225, 0.938);
+}
+
 .main .wrapper .line {
   display: flex;
   flex-direction: row;
@@ -145,102 +152,4 @@ body {
 
 .ant-modal-content {
   border-radius: 20px !important;
-}
-
-/* Button login*/
-.btn-4 {
-  padding: 0.5vw 2vw;
-  font-size: 1.2rem;
-  /* height: 50px; */
-  cursor: pointer;
-  border: 0px;
-  background: transparent;
-  position: relative; /*มีการใช้ sudo element จึงต้อง set position*/
-  /* margin: 20px; */
-  transition: all 0.25s ease;
-  color: black;
-  overflow: hidden;
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: 0px -0px 0px 0px rgba(143, 64, 248, 0.5),
-    0px 0px 0px 0px rgba(39, 200, 255, 0.5);
-}
-.btn-4:hover {
-  /* transform: translate(0, -6px); */
-  box-shadow: 10px -10px 25px 0px rgba(143, 64, 248, 0.5),
-    -10px 10px 25px 0px rgba(39, 200, 255, 0.5);
-  background-image: linear-gradient(
-    225deg,
-    #27d86c 0%,
-    #26caf8 50%,
-    #c625d0 100%
-  );
-  color: white;
-}
-.btn-4:hover::before {
-  transform: rotate(150deg);
-}
-.btn-4::before {
-  content: "";
-  width: 400px;
-  height: 400px;
-  position: absolute;
-  color: linear-gradient(225deg, #27d86c 0%, #26caf8 50%, #c625d0 100%);
-  /* background-color: white; */
-  top: -50px;
-  left: -100px;
-  z-index: -1;
-  transition: all 0.25s ease;
-}
-
-/* Button Get started*/
-.btn-5 {
-  padding: 8px 10px;
-
-  height: vw;
-  width: 20vw;
-  font-size: 1.3rem;
-  /* height: 50px; */
-  cursor: pointer;
-  border: 0px;
-  background: transparent;
-  position: relative; /*มีการใช้ sudo element จึงต้อง set position*/
-  /* margin: 20px; */
-  transition: all 0.25s ease;
-  color: #000;
-  overflow: hidden;
-  border-radius: 37px;
-  box-shadow: 0px -0px 0px 0px rgba(143, 64, 248, 0.5),
-    0px 0px 0px 0px rgba(39, 200, 255, 0.5);
-}
-.btn-5:hover {
-  /* transform: translate(0, -6px); */
-  box-shadow: 10px -10px 25px 0px rgba(143, 64, 248, 0.5),
-    -10px 10px 25px 0px rgba(39, 200, 255, 0.5);
-  background-image: linear-gradient(
-    225deg,
-    #27d86c 0%,
-    #26caf8 50%,
-    #c625d0 100%
-  );
-  color: #fff;
-}
-.btn-5:hover::before {
-  transform: rotate(150deg);
-}
-.btn-5::before {
-  content: "";
-  width: 500px;
-  height: 500px;
-  position: absolute;
-  top: -50px;
-  left: -100px;
-  background-image: linear-gradient(
-    225deg,
-    #27d86c 0%,
-    #26caf8 50%,
-    #c625d0 100%
-  );
-  z-index: -1;
-  transition: all 0.25s ease;
 }
