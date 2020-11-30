@@ -6,7 +6,9 @@ import Logo from '../../Images/Untitled-2.svg'
 function Navbar(props) {
     return (
         <>
-            <Affix offsetTop={20} >
+            <Affix offsetTop={20} style={{ width: '100%' }}>
+                {/* <div style={{ position: 'fixed', width: '100%' }}> */}
+
                 <Row data-aos="zoom-out" data-aos-delay="50" justify="space-between" align="middle" style={{ padding: "0 70px" }} >
                     <Col >
                         <div style={{ fontSize: "2.5rem", color: "#FFFEF2" }} >
@@ -27,6 +29,7 @@ function Navbar(props) {
                     </Col>
                 </Row>
 
+                {/* </div> */}
             </Affix>
         </>
     )

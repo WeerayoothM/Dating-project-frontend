@@ -23,7 +23,16 @@ function ChatMessage(props) {
             if (props.selectUser === data.userId || user.id === data.userId) {
                 temp.push({ message: data.message, userId: data.userId, oppositeUserId: props.selectUser })
             }
+
             console.log(temp)
+            setMessage(temp)
+        })
+        socket.on('room-data', roomData => {
+            console.log("roomdata", roomData)
+            const temp = roomData.reduce((acc, item) => {
+                acc.push({ message: item.message, userId: item.User.id })
+                return acc
+            }, [])
             setMessage(temp)
         })
         socket.on('token-expired', (data) => {
@@ -34,12 +43,13 @@ function ChatMessage(props) {
             history.push('/')
             socket.close()
         })
+
     })
 
     const send = (e) => {
         e.preventDefault()
         console.log(user.id)
-        socket.emit('sent_message', { message: inputValue, userId: user.id })
+        socket.emit('sent_message', { message: inputValue, userId: user.id, oppositeUserId: props.selectUser })
         setInputValue('')
     }
 
@@ -54,7 +64,7 @@ function ChatMessage(props) {
                 <div className="chat-log">
                     <span>{props.selectUser}</span>
                     {message.map((value) => {
-                        if (value.userId === user.id && value.oppositeUserId === props.selectUser) {
+                        if (value.userId === user.id) {
                             return (
                                 <>
                                     <div className='chat-container--sender'>
@@ -68,12 +78,10 @@ function ChatMessage(props) {
                             )
                         } else if (value.userId === props.selectUser) {
                             return (
-                                // <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', }}>
-                                //     <span>{props.selectUser} : {value.message}</span>
-                                // </div>
+
                                 <div className='chat-container--receiver'>
                                     <div className="chat-box green-box--receiver ">
-                                        <span className="chat-text">{value.oppositeUserId}: {value.message}</span>
+                                        <span className="chat-text">{value.userId}: {value.message}</span>
                                         <div className="white-shape white-shape--receiver"></div>
                                         <div className="green-shape green-shape--receiver"></div>
                                     </div>

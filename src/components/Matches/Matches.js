@@ -129,6 +129,7 @@ export default function Matches(props) {
   }, [])
 
   const selectProfile = (profileId) => {
+    socket.emit('join', { oppositeUserId: profileId, userId: decoded?.id })
     console.log('selectProfileId', profileId)
     setContent('message')
     props.setSelectUser(profileId)
@@ -177,6 +178,7 @@ export default function Matches(props) {
 
   const changeToMatch = () => {
     setContent('matches');
+    setMessage([])
     props.setSelectUser(null)
   }
 

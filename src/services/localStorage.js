@@ -17,6 +17,17 @@ const clearToken = () => {
 };
 
 const getRole = () => {
+  const storedToken = getToken();
+  if (storedToken) {
+    let decodedData = jwt_decode(storedToken);
+    let expirationDate = decodedData.exp;
+    var current_time = Date.now() / 1000;
+    if (expirationDate < current_time) {
+      localStorage.clear();
+      window.location.href = 'http://localhost:3000'
+    }
+  }
+
   return localStorage.getItem("ROLE") || "GUEST";
 };
 
