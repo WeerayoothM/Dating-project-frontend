@@ -4,19 +4,30 @@ import {
     Tooltip,
     Button,
     DatePicker,
+    notification,
+    Select,
 } from 'antd';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import FooterRegister from './FooterRegister';
+
+const { Option } = Select;
 
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
         sm: { span: 8 },
+        md: { span: 9 },
+        lg: { span: 8 },
+        xl: { span: 7 },
     },
     wrapperCol: {
         xs: { span: 24 },
         sm: { span: 16 },
+        md: { span: 15 },
+        md: { span: 16 },
+        md: { span: 17 },
+
     },
 };
 const tailFormItemLayout = {
@@ -34,27 +45,58 @@ const tailFormItemLayout = {
 
 function RegisterForm(props) {
     const [form] = Form.useForm();
+    const formRef = useRef(null)
 
     const onFinish = values => {
         const { name, phone, password, email, gender, motto, birthday } = values;
-        props.setFormValue({ name, phone, password, email, gender, motto, "birthday": Math.round(birthday.valueOf() / 1000) })
+        console.log(name, phone, password, email, gender, motto, birthday)
+        let latitude, longitude
+        navigator.geolocation.getCurrentPosition((pos) => {
+            console.log(pos.coords.latitude)
+            console.log(pos.coords.longitude)
+            latitude = pos.coords.latitude;
+            longitude = pos.coords.longitude;
+        },
+            function (error) {
+                console.error("Error Code = " + error.code + " - " + error.message);
+            }
+        );
+        props.setFormValue({ name, phone, password, email, gender, motto, latitude, longitude, "birthday": Math.round(birthday.valueOf() / 1000) })
         props.next();
     };
+
+    const onGenderChange = () => {
+        //
+    }
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            console.log(pos)
+        },
+            function (error) {
+                notification.error({
+                    description: 'please access your location'
+                })
+                console.error("Error Code = " + error.code + " - " + error.message);
+            }
+        );
+    }, []);
 
     return (
         <Form
             {...formItemLayout}
             form={form}
+            ref={formRef}
             name="register"
             onFinish={onFinish}
-            style={{ width: '70%' }}
+            style={{ width: '90%' }}
             scrollToFirstError
         >
             <Form.Item
                 name="name"
                 label={
                     <span>
-                        Nickname&nbsp;
+                        Name&nbsp;
                       <Tooltip title="What do you want others to call you?">
                             <QuestionCircleOutlined />
                         </Tooltip>
@@ -62,7 +104,7 @@ function RegisterForm(props) {
                 }
                 rules={[{ required: false, message: 'Please input your nickname!', whitespace: true }]}
             >
-                <Input />
+                <Input placeholder="Name" />
             </Form.Item>
 
             <Form.Item
@@ -79,7 +121,7 @@ function RegisterForm(props) {
                     },
                 ]}
             >
-                <Input />
+                <Input placeholder="E-mail" />
             </Form.Item>
 
             <Form.Item
@@ -93,7 +135,7 @@ function RegisterForm(props) {
                 ]}
                 hasFeedback
             >
-                <Input.Password />
+                <Input.Password placeholder="Password" />
             </Form.Item>
 
             <Form.Item
@@ -116,20 +158,20 @@ function RegisterForm(props) {
                     }),
                 ]}
             >
-                <Input.Password />
+                <Input.Password placeholder="Comfirm Password" />
             </Form.Item>
 
-            <Form.Item
-                name="gender"
-                label={
-                    <span>
-                        Gender&nbsp;
-                            </span>
-                }
-                rules={[{ required: false, message: 'Please input your gender!', whitespace: true }]}
-            >
-                <Input />
+            <Form.Item name="gender" label="Gender" rules={[{ required: true, message: 'Please input your gender!' }]}>
+                <Select
+                    placeholder="Select your gender"
+                    onChange={onGenderChange}
+                >
+                    <Option value="male">male</Option>
+                    <Option value="female">female</Option>
+                    <Option value="other">other</Option>
+                </Select>
             </Form.Item>
+
 
             <Form.Item label="DatePicker" name="birthday" rules={[{ required: false, message: 'Please input your birthday!' }]}>
                 <DatePicker style={{ width: '100%' }} />
@@ -140,7 +182,7 @@ function RegisterForm(props) {
                 label="Phone Number"
                 rules={[{ required: false, message: 'Please input your phone number!' }]}
             >
-                <Input style={{ width: '100%' }} />
+                <Input style={{ width: '100%' }} placeholder="Phone Number" />
             </Form.Item>
 
             <Form.Item name='motto' label="Motto">

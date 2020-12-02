@@ -35,9 +35,11 @@ export default function Matches(props) {
 
 
 
+
   useEffect(() => {
     axios.get(`/users/${decoded?.id}`)
       .then(res => {
+        console.log(typeof res.data.Photos)
         setProfileUrl(res.data.Photos[0].imageUrl);
         setName(res.data.name)
       }).catch(err => {

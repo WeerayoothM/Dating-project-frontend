@@ -59,12 +59,12 @@ function Register(props) {
     }
     return (
         <Row justify="center" style={{ height: "100vh" }}>
-            <Col span={10} style={{ height: "100vh", position: 'relative' }} >
+            <Col xs={0} sm={0} md={10} lg={10} style={{ height: "100vh", position: 'relative' }} >
                 <Row justify="center" className="left-content left-container" style={{ width: '40%', position: 'fixed', zindex: 3 }}  >
                     <h1 className="welcome-text">REGISTER</h1>
                 </Row>
             </Col>
-            <Col span={14} style={{ padding: "0 20px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Col xs={24} sm={24} md={14} lg={14} style={{ padding: "0 20px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <Affix style={{ width: '90%', margin: '0 auto' }}>
                     <Row justify="center" style={{ width: '100%', padding: '20px 0', zindex: 10, backgroundColor: '#fff', borderBottom: '1px solid hsl(0,0%,80%)' }} >
                         <Steps current={current}>

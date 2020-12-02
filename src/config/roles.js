@@ -15,7 +15,7 @@ const components = {
         page: Profile
     },
     dashboard: {
-        path: '/dashboard',
+        path: '/',
         page: Dashboard
     },
     admin: {
