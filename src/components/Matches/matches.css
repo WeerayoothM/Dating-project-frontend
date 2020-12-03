@@ -4,7 +4,7 @@
   display: "flex";
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid hsl(0, 0%, 90%);
+  border-right: 1px solid hsl(0, 0%, 90%);
 }
 
 .matches-header {
@@ -57,7 +57,7 @@
 }
 .matches-profiles > div {
   width: 33%;
-  height: 90px;
+  height: 100px;
   padding: 5px;
   position: relative;
   transition: all 0.5s ease;

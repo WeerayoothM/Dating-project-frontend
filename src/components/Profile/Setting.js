@@ -87,7 +87,7 @@ export default function Profile(props) {
           margin: "0",
           padding: "0",
         }}>
-          <div className="">
+          <div >
             <div className="matches-header" style={{
               zIndex: "2",
               position: "fixed",

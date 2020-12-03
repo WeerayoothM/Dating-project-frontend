@@ -16,7 +16,7 @@ function Home(props) {
             <div class="background-hero-page" style={{ backgroundColor: '#121a23', backgroundPosition: 'center' }} >
                 <Navbar showModal={showModal} />
                 <section className="home-container" >
-                    <div ><img className='logo-image' src={Logo} /></div>
+                    <div ><img className='logo-image' src={Logo} alt="logo" /></div>
                     <div className="home-content" >
                         <h1 data-aos='slide-right' data-aos-delay="50" data-aos-duration="900" className="home-title">Find the right person</h1>
                         <div data-aos='slide-up' data-aos-delay="50" className="started-btn" ><button className="btn-5" onClick={showModal}>GET STARTED</button></div>

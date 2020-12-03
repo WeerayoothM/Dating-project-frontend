@@ -16,7 +16,7 @@ function ChatMessage(props) {
     const [inputValue, setInputValue] = useState("");
     const history = useHistory()
     const messageRef = useRef(null)
-
+    const typingRef = useRef(null)
     const user = LocalStorageService.getUserProfile();
 
     useEffect(() => {
@@ -47,9 +47,8 @@ function ChatMessage(props) {
             }, [])
             console.log('temp2', temp)
             setMessage(temp)
-            messageRef.current.scrollTo(0, 100000000)
+            messageRef.current && messageRef.current.scrollTo(0, 100000000)
             // window.scrollTo(0, document.body.scrollHeight)
-
         })
         socket.on('token-expired', (data) => {
             notification.error({
@@ -60,6 +59,10 @@ function ChatMessage(props) {
             socket.close()
         })
 
+        socket.on('typing', data => {
+            typingRef.current && (typingRef.current.textContent = data.userId + " is typing...")
+            setTimeout(() => { typingRef.current && (typingRef.current.textContent = '') }, 5000)
+        })
 
         return () => {
             console.log('unmount')
@@ -80,6 +83,12 @@ function ChatMessage(props) {
         setInputValue('')
     }
 
+    const handleInputChange = (e) => {
+        e.preventDefault()
+        socket.emit('typing')
+        setInputValue(e.target.value)
+    }
+
     return (
         <Row data-aos='slide-up' className="chat-container" >
             <Col span={24} style={{
@@ -94,7 +103,7 @@ function ChatMessage(props) {
                         if (value.userId === user.id) {
                             return (
                                 <>
-                                    <div className='chat-container--sender'>
+                                    <div className='chat-container--sender '>
                                         <div className="chat-box green-box--sender">
                                             <span className="chat-text">{value.message}</span>
                                             <div className="white-shape white-shape--sender"></div>
@@ -117,8 +126,9 @@ function ChatMessage(props) {
                         }
                     })}
                 </div>
+                <div ref={typingRef}></div>
                 <div className="chat-input" style={{ display: 'flex', justifyContent: 'space-between', }}>
-                    <input onKeyPress={(e) => e.key === "Enter" ? send(e) : null} type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className='input-message' />
+                    <input onKeyPress={(e) => e.key === "Enter" ? send(e) : null} type="text" value={inputValue} onChange={handleInputChange} className='input-message' />
                     <Button onClick={send} shape="circle" icon={<SendOutlined style={{ fontSize: '1.25rem' }} />} style={{ border: 'none', shadow: 'none' }} htmlType='submit' ></Button>
                 </div>
             </Col>

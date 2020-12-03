@@ -131,7 +131,7 @@ function Profile() {
   }, []);
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', border: '1px solid', minHeight: '100vh' }}>
       <Setting
         profile={profile}
         fcMaxDistance={onChangeMaxDistance}
