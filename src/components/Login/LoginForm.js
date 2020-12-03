@@ -39,7 +39,7 @@ function Login(props) {
           props.history.push("/admin");
           props.setRole("ADMIN");
         } else {
-          props.history.push("/dashboard");
+          props.history.push("/");
           props.setRole("USER");
         }
       })

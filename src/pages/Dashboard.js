@@ -10,9 +10,9 @@ function Dashboard(props) {
     <div style={{ display: 'flex' }}>
       <Matches selectUser={selectUser} setSelectUser={setSelectUser} />
       {selectUser ?
-        <Playground selectUser={selectUser} setSelectUser={setSelectUser} />
-        :
         <CardProfile selectUser={selectUser} />
+        :
+        <Playground selectUser={selectUser} setSelectUser={setSelectUser} />
       }
     </div>
   );
