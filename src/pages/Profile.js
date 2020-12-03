@@ -5,7 +5,6 @@ import axios from '../config/axios';
 
 function Profile() {
   const [profile, setProfile] = useState([]);
-  console.log(profile)
 
   const onChangeMaxDistance = (value) => {
     setProfile({
@@ -77,6 +76,7 @@ function Profile() {
         console.log(err)
       })
   }
+
   const onChangePhone = (value) => {
     setProfile({
       ...profile,
@@ -91,10 +91,36 @@ function Profile() {
       })
   }
 
+  const onChangeProfile = (value) => {
+    setProfile({
+      ...profile,
+      motto: value[0],
+      passions: value[1],
+      job_title: value[2],
+      company: value[3],
+      school: value[4]
+    });
+    console.log(value)
+    axios.put('/profile', {
+      ...profile,
+      motto: value[0],
+      passions: value[1],
+      job_title: value[2],
+      company: value[3],
+      school: value[4]
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   useEffect(() => {
     axios.get("/profile")
       .then(res => {
-        setProfile(data => res.data.profile);
+        setProfile(res.data.profile);
       })
       .catch(err => {
         console.log(err)
@@ -114,6 +140,7 @@ function Profile() {
         fcTarget={onChangeTargetGender}
         fcEmail={onChangeEmail}
         fcPhone={onChangePhone}
+        fcEditProfile={onChangeProfile}
       />
     </div>
   );

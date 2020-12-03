@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Carousel, Radio } from 'antd';
 import Item from 'antd/lib/list/Item';
 
 function CardProfile(props) {
   const data = props.data;
   const onClickShowProfileEdit = props.fcOnClickShowProfileEdit;
-  const imageProfile = [
-    "./images/profile2.jpg",
-    "./images/เชียงราย2020_201130_0.jpg",
-    "./images/เชียงราย2020_201130.jpg"
-  ]
-  const [imageProfileSelect, setimageProfileSelect] = useState("./images/profile2.jpg")
-  
+  let imageProfile = data.Photos ?? [];
+  const [imageProfileSelect, setimageProfileSelect] = useState("");
+  const [buttonProfileSelect, setbuttonProfileSelect] = useState(0);
+
+  useEffect(() => {
+    setimageProfileSelect(imageProfile[0]?.imageUrl);
+  }, [imageProfile])
+
   const onClickSetProfileSelect = (item) => {
-    setimageProfileSelect(imageProfile[item])
+    setimageProfileSelect(imageProfile[item]?.imageUrl);
+    setbuttonProfileSelect(item);
   }
+
+  //---------Change CSS --------
 
   return (
     <div style={{
@@ -57,7 +61,8 @@ function CardProfile(props) {
                 color: "inherit",
                 margin: "0 3px",
                 marginTop: "8px",
-                opacity: "0.5"
+                opacity: idx === buttonProfileSelect ? "1" : "0.5",
+                outline: "none"
               }}>
                 <span style={{
                   clip: "rect(1px, 1px, 1px, 1px)",
@@ -80,14 +85,12 @@ function CardProfile(props) {
       }} />
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <h1>{data.name} {data.age}</h1>
-        {/* <button >Edit</button> */}
       </div>
       <div style={{
         borderRadius: "8px",
         zIndex: "1px",
         width: "100%",
         position: "absolute",
-        // pointerEvents: "none",
         paddingBottom: "16px",
         bottom: "0",
         justifyContent: "center",

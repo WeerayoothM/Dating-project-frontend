@@ -10,6 +10,7 @@ const { Content, Footer } = Layout;
 const { Option } = Select;
 
 export default function Profile(props) {
+
   let data = props.profile;
   const onChangeMaxDistance = props.fcMaxDistance;
   const onChangeAge = props.fcAge;
@@ -17,6 +18,8 @@ export default function Profile(props) {
   const onChangeTarget = props.fcTarget;
   const onChangeEmail = props.fcEmail;
   const onChangePhone = props.fcPhone
+  const onClickUpdateProfile = props.fcEditProfile;
+
 
   let editEmail = "";
   let editPhone = "";
@@ -54,7 +57,6 @@ export default function Profile(props) {
     setShowCardLocation(showCardLocation => !showCardLocation);
   }
   const onClickShowCardEditProfile = () => {
-    console.log("object")
     setShowCardProfileEdit(showCardProfileEdit => !showCardProfileEdit);
   }
 
@@ -85,7 +87,7 @@ export default function Profile(props) {
           margin: "0",
           padding: "0",
         }}>
-          <div className="matches">
+          <div className="">
             <div className="matches-header" style={{
               zIndex: "2",
               position: "fixed",
@@ -117,7 +119,7 @@ export default function Profile(props) {
                 width: "230px"
               }}>
                 <img
-                  src="./images/profile2.jpg"
+                  src={data.Photos?.[0]?.imageUrl}
                   alt=""
                   style={{
                     objectFit: "cover",
@@ -219,7 +221,7 @@ export default function Profile(props) {
         {showCardLocation || showCardProfileEdit ?
           showCardLocation ?
             <CardLocation data={currentLocation} fcShowCardLocation={onClickShowCardLocation} />
-            : <CardProfileEdit fcOnClickShowProfileEdit={onClickShowCardEditProfile}></CardProfileEdit>
+            : <CardProfileEdit data={data} fcOnClickSaveProfile={onClickUpdateProfile} fcOnClickShowProfileEdit={onClickShowCardEditProfile}></CardProfileEdit>
           : <CardProfile fcOnClickShowProfileEdit={onClickShowCardEditProfile} data={data} />};
       </Layout>
 
