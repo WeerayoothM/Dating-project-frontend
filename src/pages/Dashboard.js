@@ -11,9 +11,9 @@ function Dashboard(props) {
       <Matches selectUser={selectUser} setSelectUser={setSelectUser} />
       {
         selectUser ?
-          <Playground selectUser={selectUser} setSelectUser={setSelectUser} />
-          :
-          <CardProfile selectUser={selectUser} />
+        <CardProfile selectUser={selectUser} />
+        :
+        <Playground selectUser={selectUser} setSelectUser={setSelectUser} />
       }
     </div>
   );
