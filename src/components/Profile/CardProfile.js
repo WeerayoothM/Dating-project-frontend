@@ -1,9 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Carousel, Radio } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Carousel, Col, notification, Radio } from 'antd';
 import Item from 'antd/lib/list/Item';
+import axios from '../../config/axios';
 
 function CardProfile(props) {
-  const data = props.data;
+  const [data, setData] = useState(null);
+  console.log(props)
+
+  useEffect(() => {
+    axios.get(`/users/${props.selectUser}`)
+      .then(res => {
+        console.log(res.data)
+        setData(data => res.data);
+      })
+      .catch(err => {
+        console.log(err)
+        notification.error({
+          description: "Error"
+        })
+      })
+  }, [])
+
   const onClickShowProfileEdit = props.fcOnClickShowProfileEdit;
   let imageProfile = data.Photos ?? [];
   const [imageProfileSelect, setimageProfileSelect] = useState("");
@@ -131,9 +148,12 @@ function CardProfile(props) {
           }}>
             Edit Info
           </span>
-        </a>
-      </div>
-    </div>
+              </a>
+            </div>
+          </div>
+        </Col>
+      }
+    </>
   )
 }
 
