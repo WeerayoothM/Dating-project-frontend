@@ -5,6 +5,7 @@ import axios from '../../config/axios';
 
 function CardProfile(props) {
   const [data, setData] = useState(null);
+  console.log(props)
 
   useEffect(() => {
     axios.get(`/users/${props.selectUser}`)

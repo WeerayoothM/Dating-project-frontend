@@ -5,11 +5,14 @@ import CardProfile from './CardProfile';
 import CardLocation from './CardLocation';
 import axios from '../../config/axios';
 import CardProfileEdit from './CardProfileEdit';
+import localStorage from '../../services/localStorage'
 
 const { Content, Footer } = Layout;
 const { Option } = Select;
 
 export default function Profile(props) {
+  const decodeUser = localStorage.getUserProfile()
+  
   let data = props.profile;
   const onChangeMaxDistance = props.fcMaxDistance;
   const onChangeAge = props.fcAge;
@@ -220,7 +223,7 @@ export default function Profile(props) {
           showCardLocation ?
             <CardLocation data={currentLocation} fcShowCardLocation={onClickShowCardLocation} />
             : <CardProfileEdit fcOnClickShowProfileEdit={onClickShowCardEditProfile}></CardProfileEdit>
-          : <CardProfile fcOnClickShowProfileEdit={onClickShowCardEditProfile} data={data} />};
+          : <CardProfile fcOnClickShowProfileEdit={onClickShowCardEditProfile} selectUser={decodeUser.id} />};
       </Layout>
 
       <Modal
