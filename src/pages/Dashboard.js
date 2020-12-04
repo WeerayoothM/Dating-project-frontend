@@ -1,4 +1,4 @@
-import { notification } from "antd";
+import { Layout, notification } from "antd";
 import React, { useState, useEffect } from "react";
 import Matches from "../components/Matches/Matches";
 import Playground from "../components/Playground/Playground";
@@ -27,14 +27,16 @@ function Dashboard(props) {
   }, [selectUser]);
 
   return (
-    <div style={{ display: "flex" }}>
-      <Matches selectUser={selectUser} setSelectUser={setSelectUser} />
+    <Layout style={{ background: "white", height: "100vh" }}>
+      <aside>
+        <Matches selectUser={selectUser} setSelectUser={setSelectUser} />
+      </aside>
       {selectUser ? (
         <CardProfile data={data} />
       ) : (
         <Playground selectUser={selectUser} setSelectUser={setSelectUser} />
       )}
-    </div>
+    </Layout>
   );
 }
 
