@@ -451,6 +451,9 @@ function CardProfileEdit(props) {
           justifyContent: "center",
           marginTop: "5px"
         }}>
+          {imageProfile.map((idx)=>{
+            return <ImageProfileEdit imageProfile={imageProfile[idx]}></ImageProfileEdit>
+          })}
           <ImageProfileEdit imageProfile={imageProfile[0]}></ImageProfileEdit>
           <ImageProfileEdit imageProfile={imageProfile[1]}></ImageProfileEdit>
           <ImageProfileEdit imageProfile={imageProfile[2]}></ImageProfileEdit>
