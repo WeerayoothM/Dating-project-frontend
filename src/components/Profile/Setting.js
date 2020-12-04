@@ -15,11 +15,13 @@ import CardLocation from "./CardLocation";
 import axios from "../../config/axios";
 import CardProfileEdit from "./CardProfileEdit";
 import localStorage from "../../services/localStorage";
+import { useHistory } from "react-router-dom";
 
 const { Content, Footer } = Layout;
 const { Option } = Select;
 
 export default function Setting(props) {
+  const history = useHistory();
   const decodeUser = localStorage.getUserProfile();
 
   let data = props.profile;
@@ -94,7 +96,11 @@ export default function Setting(props) {
 
   return (
     <div style={{ width: "100vw" }}>
+<<<<<<< HEAD
       <Layout style={{height:"100vh"}}>
+=======
+      <Layout style={{ height: "100vh" }}>
+>>>>>>> 5ccc989432a20e0af13c5d5ec68fb3452dc1e94a
         <aside
           className="aside_setting"
           style={{
@@ -114,10 +120,12 @@ export default function Setting(props) {
               }}
             >
               <svg
+                onClick={() => history.push("/")}
                 viewBox="0 0 24 24"
                 focusable="false"
                 aria-aria-hidden="true"
                 style={{
+                  cursor: "pointer",
                   width: "24px",
                   height: "24px",
                   fill: "currentcolor",
