@@ -94,7 +94,7 @@ export default function Setting(props) {
 
   return (
     <div style={{ width: "100vw" }}>
-      <Layout>
+      <Layout style={{height:"100vh"}}>
         <aside
           className="aside_setting"
           style={{
