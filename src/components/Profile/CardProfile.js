@@ -148,12 +148,9 @@ function CardProfile(props) {
           }}>
             Edit Info
           </span>
-              </a>
-            </div>
-          </div>
-        </Col>
-      }
-    </>
+        </a>
+      </div>
+    </div>
   )
 }
 
