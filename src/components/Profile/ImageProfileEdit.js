@@ -1,6 +1,70 @@
-import React from 'react'
+import { notification } from 'antd';
+import React, { useState } from 'react'
+import axios from '../../config/axios';
 
 function ImageProfileEdit(props) {
+
+  const onClickDeleteProfileImage = (id) => {
+    props.setImageProfileEdit((prev) => {
+      console.log(prev) 
+
+      let newImageProfile = prev.filter((item) => {
+        return item.id != props.imageProfile.id
+      })
+
+      newImageProfile.push("")
+      console.log(newImageProfile) 
+      return newImageProfile
+    })
+    axios.delete(`/profile/${props.imageProfile.id}`)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const handleFileInputChange = (e) => {
+    // const file = e.target.files[0];
+    // setSelectedFile(file);
+    // e.preventDefault();
+    if (!e.target.value) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+
+    reader.onloadend = () => {
+        uploadImage(reader.result);
+    };
+    reader.onerror = () => {
+        console.error('AHHHHHHHH!!');
+        notification.error({
+            description: 'something went wrong!'
+        })
+    };
+
+};
+
+  const uploadImage = async (base64EncodedImage) => {
+    try {
+        const res = await axios.post('/upload', { data: base64EncodedImage })
+        const response = await axios.post('/profile/upload', { imageUrl: res.data.url })
+        
+        props.setImageProfileEdit((prev) => {
+          let newImageProfile = [...prev];
+          newImageProfile[props.idx] = {id : response.data.id ,url:response.data.url };
+          // console.log(newImageProfile)
+          return newImageProfile
+        })
+
+        notification.success({ description: 'Upload success' })
+    } catch (err) {
+        console.error(err);
+        notification.error({ description: 'Something went wrong' })
+    }
+};
+
   return (
     <li style={{
       width: "125px",
@@ -36,7 +100,7 @@ function ImageProfileEdit(props) {
               borderRadius: "8px",
             }}>
               <div style={{
-                backgroundImage: `url(${props.imageProfile})`,
+                backgroundImage: `url(${props.imageProfile.url})`,
                 backgroundPosition: "50% 50%",
                 backgroundSize: "110.535%",
                 width: "100%",
@@ -56,34 +120,38 @@ function ImageProfileEdit(props) {
             }}>
               {
                 props.imageProfile !== "" ?
-                  <button style={{
-                    width: "28px",
-                    zIndex: "0",
-                    whiteSpace: "nowrap",
-                    verticalAlign: "bottom",
-                    textTransform: "uppercase",
-                    textOverflow: "ellipsis",
-                    position: "relative",
-                    padding: "0",
-                    overflow: "hidden",
-                    maxWidth: "100%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    letterSpacing: ".02em",
-                    height: "28px",
-                    fontWeight: "600",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    display: "flex",
-                    cursor: "pointer",
-                    color: "#fd5068",
-                    boxShadow: "0 2px 6px 0 rgba(112,125,134,0.14)",
-                    background: "#fff",
-                    borderRadius: "50%",
-                    touchAction: "manipulation",
-                    borderStyle: "none",
-                    margin: "0",
-                  }}>
+                  <button
+                    onClick={() => {
+                      onClickDeleteProfileImage()
+                    }}
+                    style={{
+                      width: "28px",
+                      zIndex: "0",
+                      whiteSpace: "nowrap",
+                      verticalAlign: "bottom",
+                      textTransform: "uppercase",
+                      textOverflow: "ellipsis",
+                      position: "relative",
+                      padding: "0",
+                      overflow: "hidden",
+                      maxWidth: "100%",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      letterSpacing: ".02em",
+                      height: "28px",
+                      fontWeight: "600",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      display: "flex",
+                      cursor: "pointer",
+                      color: "#fd5068",
+                      boxShadow: "0 2px 6px 0 rgba(112,125,134,0.14)",
+                      background: "#fff",
+                      borderRadius: "50%",
+                      touchAction: "manipulation",
+                      borderStyle: "none",
+                      margin: "0",
+                    }}>
                     <span style={{
                       zIndex: "1",
                       width: "100%",
@@ -108,7 +176,7 @@ function ImageProfileEdit(props) {
                     </span>
                   </button>
                   :
-                  <button style={{
+                  <label style={{
                     width: "28px",
                     zIndex: "0",
                     whiteSpace: "nowrap",
@@ -159,7 +227,15 @@ function ImageProfileEdit(props) {
                         </path>
                       </svg>
                     </span>
-                  </button>
+                    <input
+                        id="fileInput"
+                        type="file"
+                        name="image"
+                        onChange={handleFileInputChange}
+                        className="upload-image"
+                        style={{ display: 'none' }}
+                    />
+                  </label>
               }
             </div>
           </div>

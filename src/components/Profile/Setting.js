@@ -96,11 +96,7 @@ export default function Setting(props) {
 
   return (
     <div style={{ width: "100vw" }}>
-<<<<<<< HEAD
-      <Layout style={{height:"100vh"}}>
-=======
       <Layout style={{ height: "100vh" }}>
->>>>>>> 5ccc989432a20e0af13c5d5ec68fb3452dc1e94a
         <aside
           className="aside_setting"
           style={{
@@ -315,7 +311,14 @@ export default function Setting(props) {
             While turned off, you will not be shown in the card stack. You can
             still see and chat with your matches.
           </p>
-          <Menu theme="light" mode="inline" selectedKeys="false">
+          <Menu theme="light" mode="inline" selectedKeys="false" 
+            style={{ outline: "none" }}
+            onClick={() => {
+              localStorage.clearToken();
+              history.push("/");
+              window.location.reload();
+            }}
+          >
             <Menu.Item key="11" style={{}}>
               Log Out
             </Menu.Item>
