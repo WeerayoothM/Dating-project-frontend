@@ -311,7 +311,7 @@ export default function Setting(props) {
             While turned off, you will not be shown in the card stack. You can
             still see and chat with your matches.
           </p>
-          <Menu theme="light" mode="inline" selectedKeys="false" 
+          <Menu theme="light" mode="inline" selectedKeys="false"
             style={{ outline: "none" }}
             onClick={() => {
               localStorage.clearToken();
@@ -331,18 +331,19 @@ export default function Setting(props) {
               fcShowCardLocation={onClickShowCardLocation}
             />
           ) : (
-            <CardProfileEdit
-              fcOnClickShowProfileEdit={onClickShowCardEditProfile}
-              fcOnClickSaveProfile={onClickUpdateProfile}
-              data={data}
-            ></CardProfileEdit>
-          )
+              <CardProfileEdit
+                fcOnClickShowProfileEdit={onClickShowCardEditProfile}
+                fcOnClickSaveProfile={onClickUpdateProfile}
+                data={data}
+              ></CardProfileEdit>
+            )
         ) : (
-          <CardProfile
-            fcOnClickShowProfileEdit={onClickShowCardEditProfile}
-            data={data}
-          />
-        )}
+            <CardProfile
+              isShowEditBtn={true}
+              fcOnClickShowProfileEdit={onClickShowCardEditProfile}
+              data={data}
+            />
+          )}
         ;
       </Layout>
 

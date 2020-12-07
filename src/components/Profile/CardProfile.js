@@ -112,7 +112,7 @@ function CardProfile(props) {
           {data && data.name} {data && data.age}
         </h1>
       </div>
-      <div
+      { props.isShowEditBtn && <div
         style={{
           borderRadius: "8px",
           zIndex: "1px",
@@ -163,7 +163,7 @@ function CardProfile(props) {
             Edit Info
           </span>
         </a>
-      </div>
+      </div>}
     </div>
   );
 }

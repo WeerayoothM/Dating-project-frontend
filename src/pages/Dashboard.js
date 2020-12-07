@@ -32,10 +32,10 @@ function Dashboard(props) {
         <Matches selectUser={selectUser} setSelectUser={setSelectUser} />
       </aside>
       {selectUser ? (
-        <CardProfile data={data} />
+        <CardProfile data={data} isShowEditBtn={false} />
       ) : (
-        <Playground selectUser={selectUser} setSelectUser={setSelectUser} />
-      )}
+          <Playground selectUser={selectUser} setSelectUser={setSelectUser} />
+        )}
     </Layout>
   );
 }

@@ -88,9 +88,9 @@ export default function Playground() {
     var a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c; // Distance in km
     return d;
@@ -114,14 +114,7 @@ export default function Playground() {
       // xl={18}
 
       className="playground"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        marginLeft: "50%",
-        height: "100%",
-      }}
+
     >
       <div justify="center" ref={profileEl} className="playground-profile">
         <img
@@ -134,6 +127,7 @@ export default function Playground() {
           {name} {distance}km.
         </span>
       </div>
+
       <div className="playground-control">
         <div>
           <i className="fas fa-undo"></i>

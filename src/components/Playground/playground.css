@@ -1,9 +1,13 @@
 .playground {
   margin: 0 auto;
   display: flex;
+  width: 400px;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 50%;
+  height: 100%;
 }
 .playground-profile {
   width: 400px;
@@ -94,7 +98,7 @@
 .rotate-right {
   transform: rotate(30deg) scale(0.8);
   transition: 1s;
-  margin-left: 400px;
+  margin-right: -375px;
   cursor: e-resize;
   opacity: 0;
   z-index: 10;

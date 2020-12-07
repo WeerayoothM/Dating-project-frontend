@@ -45,22 +45,12 @@ const tailFormItemLayout = {
 
 function RegisterForm(props) {
     const [form] = Form.useForm();
-    const formRef = useRef(null)
+    const formRef = useRef(null);
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
 
     const onFinish = values => {
         const { name, phone, password, email, gender, motto, birthday } = values;
-        console.log(name, phone, password, email, gender, motto, birthday)
-        let latitude, longitude
-        navigator.geolocation.getCurrentPosition((pos) => {
-            console.log(pos.coords.latitude)
-            console.log(pos.coords.longitude)
-            latitude = pos.coords.latitude;
-            longitude = pos.coords.longitude;
-        },
-            function (error) {
-                console.error("Error Code = " + error.code + " - " + error.message);
-            }
-        );
         props.setFormValue({ name, phone, password, email, gender, motto, latitude, longitude, "birthday": Math.round(birthday.valueOf() / 1000) })
         props.next();
     };
@@ -71,7 +61,8 @@ function RegisterForm(props) {
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((pos) => {
-            console.log(pos)
+            setLatitude(pos.coords.latitude);
+            setLongitude(pos.coords.longitude);
         },
             function (error) {
                 notification.error({
