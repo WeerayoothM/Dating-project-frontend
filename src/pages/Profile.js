@@ -117,6 +117,25 @@ function Profile() {
       })
   }
 
+  const updateLatLong = (value) => {
+    setProfile({
+      ...profile,
+      lat: value[0],
+      long: value[1]
+    });
+    axios.put('/profile', {
+      ...profile,
+      lat: value[0],
+      long: value[1]
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   useEffect(() => {
     axios.get("/profile")
       .then(res => {
@@ -141,6 +160,7 @@ function Profile() {
         fcEmail={onChangeEmail}
         fcPhone={onChangePhone}
         fcEditProfile={onChangeProfile}
+        fcUpdateLatLong={updateLatLong}
       />
     </div>
   );

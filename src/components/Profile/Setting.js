@@ -32,6 +32,7 @@ export default function Setting(props) {
   const onChangeEmail = props.fcEmail;
   const onChangePhone = props.fcPhone;
   const onClickUpdateProfile = props.fcEditProfile;
+  const updateLatLong = props.fcUpdateLatLong;
 
   let editEmail = "";
   let editPhone = "";
@@ -52,6 +53,10 @@ export default function Setting(props) {
   }, []);
 
   useEffect(() => {
+    let latLong =[latitude,longitude]
+    console.log(latLong)
+    updateLatLong(latLong);
+
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     axios
       .get(
