@@ -26,10 +26,6 @@ axios.interceptors.response.use(
     (err) => {
         if (err.response?.status === 401) {
             LocalStorageService.clearToken();
-            notification.error({
-                message: "กรุณาเข้าสู่ระบบใหม่",
-                placement: "topRight"
-            });
             window.location.href = 'http://localhost:3000'
 
             return Promise.reject(err);

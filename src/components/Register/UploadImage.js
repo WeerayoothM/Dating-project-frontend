@@ -76,14 +76,9 @@ function UploadImage(props) {
         <>
 
             <form onSubmit={handleSubmitFile} className="form" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-                <Image
-                    width={250}
-                    src={imageUrl}
-                    icon={imageUrl ? <img src={imageUrl} style={{ width: 'auto', height: '100%', objectFit: 'cover', objectPosition: '50% 50%' }} alt="profile picture" /> : <UserOutlined />}
-                />
                 <Avatar size={250}
                     src={imageUrl}
-                    icon={imageUrl ? <img src={imageUrl} style={{ width: 'auto', height: '100%', objectFit: 'cover', objectPosition: '50% 50%' }} alt="profile picture" /> : <UserOutlined />}/>
+                    icon={imageUrl ? <img src={imageUrl} style={{ width: 'auto', height: '100%', objectFit: 'cover', objectPosition: '50% 50%' }} alt="profile picture" /> : <UserOutlined />} />
                 <Divider />
                 <label class="custom-file-upload">
                     <UploadOutlined /> Custom Upload

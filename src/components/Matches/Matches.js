@@ -9,7 +9,6 @@ import { BASE_BACKEND_URL } from "../../config/constants";
 import io from "socket.io-client";
 
 export default function Matches(props) {
-  const [matchProfile, setMatchProfile] = useState([]);
   const [content, setContent] = useState("matches");
   const [profileUrl, setProfileUrl] = useState(null);
   const [name, setName] = useState(null);
@@ -47,7 +46,7 @@ export default function Matches(props) {
   }, []);
 
   const displayProfiles = () => {
-    return matchProfile.map((profile) => (
+    return props.matchProfile.map((profile) => (
       <div
         className="matches-profile-item"
         key={profile.id}
@@ -60,21 +59,7 @@ export default function Matches(props) {
     ));
   };
 
-  const getMatchedProfile = () => {
-    axios
-      .get("/play/matches")
-      .then((res) => {
-        console.log("res", res.data);
-        setMatchProfile(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
-  useEffect(() => {
-    getMatchedProfile();
-  }, []);
 
   const changeToMessage = () => {
     setContent("message");
@@ -100,16 +85,6 @@ export default function Matches(props) {
           <img src={profileUrl} alt="" />
           <span>My Profile</span>
         </Link>
-        <button
-          style={{ outline: "none" }}
-          onClick={() => {
-            LocalStorageService.clearToken();
-            history.push("/");
-            window.location.reload();
-          }}
-        >
-          <i className="fas fa-shopping-bag"></i>
-        </button>
       </Row>
       <Row className="matches-tab">
         <button className="content-btn--matches" onClick={changeToMatch}>
@@ -126,8 +101,8 @@ export default function Matches(props) {
           {displayProfiles()}
         </Row>
       ) : (
-        <ChatMessage socket={socket} selectUser={props.selectUser} />
-      )}
+          <ChatMessage socket={socket} selectUser={props.selectUser} />
+        )}
     </Col>
   );
 }

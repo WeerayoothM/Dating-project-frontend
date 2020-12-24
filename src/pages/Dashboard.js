@@ -8,6 +8,24 @@ import axios from "../config/axios";
 function Dashboard(props) {
   const [selectUser, setSelectUser] = useState(null);
   const [data, setData] = useState(null);
+  const [matchProfile, setMatchProfile] = useState([]);
+
+
+  const getMatchedProfile = () => {
+    axios
+      .get("/play/matches")
+      .then((res) => {
+        console.log("res", res.data);
+        setMatchProfile(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getMatchedProfile()
+  }, [])
 
   useEffect(() => {
     if (selectUser) {
@@ -29,12 +47,12 @@ function Dashboard(props) {
   return (
     <Layout style={{ background: "white", height: "100vh" }}>
       <aside>
-        <Matches selectUser={selectUser} setSelectUser={setSelectUser} />
+        <Matches matchProfile={matchProfile} selectUser={selectUser} setSelectUser={setSelectUser} />
       </aside>
       {selectUser ? (
         <CardProfile data={data} isShowEditBtn={false} />
       ) : (
-          <Playground selectUser={selectUser} setSelectUser={setSelectUser} />
+          <Playground getMatchedProfile={getMatchedProfile} selectUser={selectUser} setSelectUser={setSelectUser} />
         )}
     </Layout>
   );

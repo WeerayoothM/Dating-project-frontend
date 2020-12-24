@@ -65,7 +65,7 @@ function RegisterForm(props) {
             setLongitude(pos.coords.longitude);
         },
             function (error) {
-                notification.error({
+                notification.warning({
                     description: 'please access your location'
                 })
                 console.error("Error Code = " + error.code + " - " + error.message);

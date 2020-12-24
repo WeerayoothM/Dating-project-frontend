@@ -3,7 +3,7 @@ import "./playground.css";
 import axios from "../../config/axios";
 import { Col, Row } from "antd";
 
-export default function Playground() {
+export default function Playground(props) {
   const profileEl = useRef(null);
   const profileImageEl = useRef(null);
 
@@ -39,6 +39,7 @@ export default function Playground() {
       const res = await axios.post(`/play/like/${id}`);
       if (res.data.status && res.data.status === "match") {
         profileEl.current.classList.add("tada");
+        props.getMatchedProfile()
         return setTimeout(() => {
           getNextProfile();
         }, 2000);

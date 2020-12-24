@@ -5,7 +5,6 @@ import SelectTaste from '../components/Register/SelectTaste';
 import UploadImage from '../components/Register/UploadImage';
 import axios from '../config/axios';
 import { withRouter } from 'react-router-dom';
-import FooterRegister from '../components/Register/FooterRegister';
 
 const { Step } = Steps;
 
@@ -26,11 +25,10 @@ function Register(props) {
             .catch(err => {
                 console.log(err)
                 notification.error({
-                    description: "Login failed"
+                    description: "User already taken"
                 })
             })
     }
-
 
 
     const steps = [
